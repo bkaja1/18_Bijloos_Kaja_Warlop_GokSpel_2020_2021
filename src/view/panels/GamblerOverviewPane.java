@@ -9,7 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.Speler;
-import model.database.GeneriekeList;
+import model.GeneriekeList;
 import model.database.SpelerTekstLoadSave;
 import model.database.TekstLoadSaveTemplate;
 
