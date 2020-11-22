@@ -14,8 +14,8 @@ import model.database.SpelerTekstLoadSave;
 import model.database.TekstLoadSaveTemplate;
 
 public class GamblerOverviewPane extends GridPane{
-	private TekstLoadSaveTemplate tekstLoadSaveTemplate;
-	private TableView<Speler> table;
+    private TableView<Speler> table;
+    private TekstLoadSaveTemplate tekstLoadSaveTemplate;
 	private ObservableList<Speler> spelers;
 
 	public GamblerOverviewPane() {
