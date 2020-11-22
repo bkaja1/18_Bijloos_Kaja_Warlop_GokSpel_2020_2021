@@ -48,9 +48,9 @@ public class GamblerOverviewPane extends GridPane{
 	}
 
 	public void refresh() {
-		GeneriekeList<Speler> generiekeList = new GeneriekeList<>();
+		GeneriekeList generiekeList = new GeneriekeList();
 		for(Object object : tekstLoadSaveTemplate.load().values()) {
-			generiekeList.voegToe((Speler) object);
+			generiekeList.voegToe(object);
 		}
 		spelers = FXCollections.observableArrayList(generiekeList.getAll());
 		table.setItems(spelers);
