@@ -3,6 +3,8 @@ package model.database;
 import model.Speler;
 
 import java.io.*;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -15,7 +17,7 @@ public class SpelerTekstLoadSave extends TekstLoadSaveTemplate {
     }
 
     @Override
-    protected void scan(Scanner scanner) {
+    protected void scan(Scanner scanner, Map<String, Object> objects) {
         while (scanner.hasNextLine()) {
             Scanner scannerLine = new Scanner(scanner.nextLine());
             scannerLine.useDelimiter(",");

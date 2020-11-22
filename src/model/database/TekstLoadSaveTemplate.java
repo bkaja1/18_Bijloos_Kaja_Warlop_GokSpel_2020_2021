@@ -15,7 +15,7 @@ public abstract class TekstLoadSaveTemplate  {
     private FileWriter fileWriter;
     private Scanner scanner;
     private PrintWriter printWriter;
-    protected Map<String, Object> objects;
+    private Map<String, Object> objects;
 
     public TekstLoadSaveTemplate(String path) {
         if(path == null || path.isEmpty()) throw new IllegalArgumentException("Path is ongeldig");
@@ -25,7 +25,7 @@ public abstract class TekstLoadSaveTemplate  {
 
     public final Map<String, Object> load() {
         loadStart();
-        scan(scanner);
+        scan(scanner, objects);
         return objects;
     }
 
@@ -52,7 +52,7 @@ public abstract class TekstLoadSaveTemplate  {
         }
     }
 
-    protected abstract void scan(Scanner scanner);
+    protected abstract void scan(Scanner scanner, Map<String, Object> objects);
 
     protected abstract void println(PrintWriter printWriter, Object object);
 }
