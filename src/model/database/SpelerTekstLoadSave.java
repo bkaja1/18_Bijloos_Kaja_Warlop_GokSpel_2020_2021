@@ -5,6 +5,10 @@ import model.Speler;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * @Author Blenda Kaja
+ */
+
 public class SpelerTekstLoadSave extends TekstLoadSaveTemplate {
     public SpelerTekstLoadSave() {
         super("src/bestanden/speler.txt");
