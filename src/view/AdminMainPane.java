@@ -4,6 +4,7 @@ package view;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import view.panels.GamblerOverviewPane;
 
 public class AdminMainPane extends BorderPane {
