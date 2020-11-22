@@ -6,23 +6,23 @@ package model;
  */
 
 public class Speler {
-    private String naam, voornaam, spelersnaam;
-    private int saldo; // of double?
+    private String familienaam, voornaam, spelernaam;
+    private int goksaldo; // of double?
 
-    public Speler(String naam, String voornaam, String spelersnaam, int saldo) {
-        setNaam(naam);
+    public Speler(String familienaam, String voornaam, String spelernaam, int goksaldo) {
+        setFamilienaam(familienaam);
         setVoornaam(voornaam);
-        setSpelersnaam(spelersnaam);
-        setSaldo(saldo);
+        setSpelernaam(spelernaam);
+        setGoksaldo(goksaldo);
     }
 
-    public String getNaam() {
-        return naam;
+    public String getFamilienaam() {
+        return familienaam;
     }
 
-    public void setNaam(String naam) {
-        if(naam.trim().isEmpty() || naam == null) throw new IllegalArgumentException("Naam mag niet leeg zijn");
-        this.naam = naam;
+    public void setFamilienaam(String familienaam) {
+        if(familienaam == null || familienaam.trim().isEmpty()) throw new IllegalArgumentException("Familienaam mag niet leeg zijn");
+        this.familienaam = familienaam;
     }
 
     public String getVoornaam() {
@@ -30,29 +30,29 @@ public class Speler {
     }
 
     public void setVoornaam(String voornaam) {
-        if(voornaam.trim().isEmpty() || voornaam == null) throw new IllegalArgumentException("Voornaam mag niet leeg zijn");
+        if(voornaam == null || voornaam.trim().isEmpty()) throw new IllegalArgumentException("Voornaam mag niet leeg zijn");
         this.voornaam = voornaam;
     }
 
-    public String getSpelersnaam() {
-        return spelersnaam;
+    public String getSpelernaam() {
+        return spelernaam;
     }
 
-    public void setSpelersnaam(String spelersnaam) {
-        if(spelersnaam.trim().isEmpty() || spelersnaam == null) throw new IllegalArgumentException("Spelersnaam mag niet leeg zijn");
-        this.spelersnaam = spelersnaam;
+    public void setSpelernaam(String spelernaam) {
+        if(spelernaam == null || spelernaam.trim().isEmpty()) throw new IllegalArgumentException("Spelernaam mag niet leeg zijn");
+        this.spelernaam = spelernaam;
     }
 
-    public int getSaldo() {
-        return saldo;
+    public int getGoksaldo() {
+        return goksaldo;
     }
 
-    public void setSaldo(int saldo) {
-        if(saldo < 0) throw new IllegalArgumentException("Saldo kan niet negatief zijn");
-        this.saldo = saldo;
+    public void setGoksaldo(int goksaldo) {
+        if(goksaldo < 0) throw new IllegalArgumentException("Goksaldo kan niet negatief zijn");
+        this.goksaldo = goksaldo;
     }
 
-    public void voegToeAanSaldo(int bedrag) {
-        this.saldo += bedrag;
+    public void voegToeAanGokSaldo(int bedrag) {
+        this.goksaldo += bedrag;
     }
 }

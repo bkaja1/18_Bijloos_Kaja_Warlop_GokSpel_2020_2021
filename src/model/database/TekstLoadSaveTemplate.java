@@ -1,9 +1,7 @@
 package model.database;
 
-import model.Speler;
-
 import java.io.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -12,67 +10,49 @@ import java.util.Scanner;
  */
 
 public abstract class TekstLoadSaveTemplate  {
-
     private String path;
     private File file;
-    private ArrayList<Object> list;
-    private Scanner fileScanner;
-    private Map<String, String> objectValues;
-    private Speler objectToAdd;
-    private FileWriter writer;
+    private FileWriter fileWriter;
+    private Scanner scanner;
+    private PrintWriter printWriter;
+    protected Map<String, Object> objects;
 
     public TekstLoadSaveTemplate(String path) {
-        if(path.isEmpty()) throw new IllegalArgumentException("Path can't be empty");
+        if(path == null || path.isEmpty()) throw new IllegalArgumentException("Path is ongeldig");
         this.path = path;
-        this.list = new ArrayList<>();
+        this.objects = new HashMap<>();
     }
 
-    public final ArrayList<Object> load() {
-        loadSetup();
-        while(fileScanner.hasNextLine()) {
-            Scanner rowScanner = new Scanner(fileScanner.nextLine());
-            objectValues = readLine(rowScanner);
-            objectToAdd = parseListToObject(objectValues);
-            list.add(objectToAdd);
-        }
-        return list;
+    public final Map<String, Object> load() {
+        loadStart();
+        scan(scanner);
+        return objects;
     }
 
-    public final void save(ArrayList<Object> list) {
-        saveSetup();
+    public final void save(Object object) {
+        saveStart();
+        println(printWriter, object);
+    }
+
+    private void loadStart() {
         try{
-            for(Object o : list) {
-                writer.write(convertToString(o));
-            }
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected abstract Map<String, String> readLine(Scanner rowScanner);
-    protected abstract Speler parseListToObject(Map<String, String> objectValues);
-    protected abstract String convertToString(Object o);
-
-    private void loadSetup() {
-        file = new File(path);
-        try{
-            this.fileScanner = new Scanner(file);
+            this.file = new File(path);
+            this.scanner = new Scanner(file);
         } catch (FileNotFoundException exc) {
             exc.printStackTrace();
         }
     }
 
-    private void saveSetup() {
+    private void saveStart() {
         try {
-            file = new File(path);
-            file.createNewFile();
-            writer = new FileWriter(file);
+            this.fileWriter = new FileWriter(path, true);
+            this.printWriter = new PrintWriter(fileWriter);
         } catch (IOException exc) {
             exc.printStackTrace();
         }
     }
 
+    protected abstract void scan(Scanner scanner);
 
+    protected abstract void println(PrintWriter printWriter, Object object);
 }
