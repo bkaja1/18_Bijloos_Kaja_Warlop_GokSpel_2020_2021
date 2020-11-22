@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * @Author Niels Bijloos
+ *
+ */
+
 public class Speler {
     private String naam, voornaam, spelersnaam;
     private int saldo; // of double?
