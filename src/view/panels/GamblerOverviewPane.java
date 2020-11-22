@@ -35,9 +35,13 @@ public class GamblerOverviewPane extends GridPane{
 		TableColumn<Speler,String> spelersnaam = new TableColumn<>("Spelersnaam");
 		spelersnaam.setCellValueFactory(new PropertyValueFactory<>("spelersnaam"));
 
+		TableColumn<Speler,String> saldo = new TableColumn<>("Saldo");
+		saldo.setCellValueFactory(new PropertyValueFactory<>("saldo"));
+
 		table.getColumns().add(naam);
 		table.getColumns().add(voornaam);
 		table.getColumns().add(spelersnaam);
+		table.getColumns().add(saldo);
 		//table.getItems().addAll(controller.getSpelers());
 		this.add(table,0,1);
 	}
