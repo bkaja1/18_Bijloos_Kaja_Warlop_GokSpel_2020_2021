@@ -17,10 +17,10 @@ public class SpelerTekstLoadSave extends TekstLoadSaveTemplate {
             scannerLine.useDelimiter(",");
             String familienaam = scannerLine.next();
             String voornaam = scannerLine.next();
-            String spelersnaam = scannerLine.next();
+            String spelernaam = scannerLine.next();
             int goksaldo = Integer.parseInt(scannerLine.next());
-            Speler speler = new Speler(familienaam, voornaam, spelersnaam, goksaldo);
-            objects.put(spelersnaam, speler);
+            Speler speler = new Speler(familienaam, voornaam, spelernaam, goksaldo);
+            objects.put(spelernaam, speler);
             scannerLine.close();
         }
     }
