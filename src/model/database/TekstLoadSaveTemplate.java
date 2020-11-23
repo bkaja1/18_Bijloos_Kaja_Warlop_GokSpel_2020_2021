@@ -14,6 +14,7 @@ public abstract class TekstLoadSaveTemplate  {
     private File file;
     private FileWriter fileWriter;
     private Scanner scanner;
+    private Scanner scannerNextLine;
     private PrintWriter printWriter;
     private Map<String, Object> objects;
 
@@ -25,13 +26,18 @@ public abstract class TekstLoadSaveTemplate  {
 
     public final Map<String, Object> load() {
         loadStart();
-        scan(scanner, objects);
+        while(scanner.hasNextLine()) {
+            createScannerNextLine();
+            scan(scannerNextLine, objects);
+            loadClose();
+        }
         return objects;
     }
 
     public final void save(Object object) {
         saveStart();
         println(printWriter, object);
+        saveClose();
     }
 
     private void loadStart() {
@@ -52,7 +58,19 @@ public abstract class TekstLoadSaveTemplate  {
         }
     }
 
+    private void createScannerNextLine() {
+        scannerNextLine = new Scanner(scanner.nextLine());
+    }
+
     protected abstract void scan(Scanner scanner, Map<String, Object> objects);
 
     protected abstract void println(PrintWriter printWriter, Object object);
+
+    private void loadClose() {
+        scannerNextLine.close();
+    }
+
+    private void saveClose() {
+        printWriter.close();
+    }
 }

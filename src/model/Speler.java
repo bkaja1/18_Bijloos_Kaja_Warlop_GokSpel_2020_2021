@@ -51,8 +51,4 @@ public class Speler {
         if(goksaldo < 0) throw new IllegalArgumentException("Goksaldo kan niet negatief zijn");
         this.goksaldo = goksaldo;
     }
-
-    public void voegToeAanGokSaldo(int bedrag) {
-        this.goksaldo += bedrag;
-    }
 }
