@@ -1,7 +1,6 @@
 package view.panels;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -9,18 +8,18 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.Speler;
-import model.GeneriekeList;
 import model.database.SpelerTekstLoadSave;
-import model.database.TekstLoadSaveTemplate;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
 
 public class GamblerOverviewPane extends GridPane{
     private TableView<Speler> table;
-    private TekstLoadSaveTemplate tekstLoadSaveTemplate;
-	private ObservableList<Speler> spelers;
 
 	public GamblerOverviewPane() {
 		this.table = new TableView<>();
-		this.tekstLoadSaveTemplate = new SpelerTekstLoadSave();
 
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
@@ -48,12 +47,10 @@ public class GamblerOverviewPane extends GridPane{
 	}
 
 	public void refresh() {
-		GeneriekeList generiekeList = new GeneriekeList();
-		for(Object object : tekstLoadSaveTemplate.load().values()) {
-			generiekeList.voegToe(object);
-		}
-		spelers = FXCollections.observableArrayList(generiekeList.getAll());
-		table.setItems(spelers);
+		Map<String, Speler> resultMap = new SpelerTekstLoadSave().load(new File("src/bestanden/speler.txt"));
+		ArrayList<Speler> spelers = new ArrayList<>(resultMap.values());
+		Collections.sort(spelers);
+		table.setItems(FXCollections.observableArrayList(spelers));
 		table.refresh();
 	}
 }

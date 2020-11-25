@@ -5,7 +5,7 @@ package model;
  *
  */
 
-public class Speler {
+public class Speler implements Comparable<Speler> {
     private String familienaam, voornaam, spelernaam;
     private int goksaldo; // of double?
 
@@ -50,5 +50,10 @@ public class Speler {
     public void setGoksaldo(int goksaldo) {
         if(goksaldo < 0) throw new IllegalArgumentException("Goksaldo kan niet negatief zijn");
         this.goksaldo = goksaldo;
+    }
+
+    @Override
+    public int compareTo(Speler o) {
+        return this.getSpelernaam().compareTo(o.getSpelernaam());
     }
 }

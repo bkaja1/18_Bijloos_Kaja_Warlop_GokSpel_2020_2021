@@ -8,8 +8,8 @@ import javafx.stage.Stage;
 import view.panels.GamblerOverviewPane;
 
 public class AdminMainPane extends BorderPane {
-	public AdminMainPane(){		
-	    TabPane tabPane = new TabPane(); 	    
+    public AdminMainPane(){
+        TabPane tabPane = new TabPane();
         Tab spelVerloopTab = new Tab("Spelverloop");
         GamblerOverviewPane gamblerOverviewPane = new GamblerOverviewPane();
         Tab spelerTab = new Tab("Spelers",gamblerOverviewPane);
@@ -20,5 +20,5 @@ public class AdminMainPane extends BorderPane {
         tabPane.getTabs().add(statistiekTab);
         tabPane.getTabs().add(instellingTab);
         this.setCenter(tabPane);
-	}
+    }
 }
