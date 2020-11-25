@@ -17,4 +17,10 @@ public class SpelerTekstLoadSave extends TekstLoadSaveTemplate {
     protected Object getKey(String[] tokens) {
         return tokens[2];
     }
+
+    @Override
+    protected String objectToString(Object object) {
+        Speler speler = (Speler) object;
+        return speler.getFamilienaam() + "," + speler.getVoornaam() + "," + speler.getSpelernaam() + "," + speler.getGoksaldo();
+    }
 }

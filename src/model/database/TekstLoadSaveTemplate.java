@@ -20,13 +20,23 @@ public abstract class TekstLoadSaveTemplate<K, V> {
                 K key = getKey(tokens);
                 returnMap.put(key, element);
             }
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return returnMap;
     }
 
+    public final void save(File file, Object object) {
+        try (PrintWriter printWriter = new PrintWriter(new FileWriter(file, true))) {
+            printWriter.println(objectToString(object));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     protected abstract V maakObject(String[] tokens);
 
     protected abstract K getKey(String[] tokens);
+
+    protected abstract String objectToString(Object object);
 }
