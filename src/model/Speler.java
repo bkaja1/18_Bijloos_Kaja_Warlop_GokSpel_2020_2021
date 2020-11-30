@@ -7,7 +7,7 @@ package model;
 
 public class Speler implements Comparable<Speler> {
     private String familienaam, voornaam, spelernaam;
-    private int goksaldo; // of double?
+    private int goksaldo;
 
     public Speler(String familienaam, String voornaam, String spelernaam, int goksaldo) {
         setFamilienaam(familienaam);
