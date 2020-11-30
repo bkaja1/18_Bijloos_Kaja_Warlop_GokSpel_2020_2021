@@ -1,8 +1,8 @@
 package model.database;
 
  public enum LoadSaveEnum {
-     SPELERTEKST( "SpelerTekst", "database.SpelerTekstLoadSave"),
-     SPELEREXCEL("SpelerExcel", "database.SpelerExcelLoadSaveStrategy");
+     SPELERTEKST("SpelerTekst", "model.database.SpelerTekstLoadSaveStrategy"),
+     SPELEREXCEL("SpelerExcel", "model.database.SpelerExcelLoadSaveStrategy");
 
      private final String omschrijving;
      private final String klasseNaam;

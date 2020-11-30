@@ -6,7 +6,7 @@ import model.Speler;
  * @Author Blenda Kaja
  */
 
-public class SpelerTekstLoadSave extends TekstLoadSaveTemplate {
+public class SpelerTekstLoadSaveStrategy extends TekstLoadSaveTemplate implements LoadSaveStrategy {
     @Override
     protected Object maakObject(String[] tokens) {
         Speler speler = new Speler(tokens[0], tokens[1], tokens[2], Integer.parseInt(tokens[3]));

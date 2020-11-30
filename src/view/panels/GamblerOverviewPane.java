@@ -8,7 +8,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.Speler;
-import model.database.SpelerTekstLoadSave;
+import model.database.SpelerTekstLoadSaveStrategy;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class GamblerOverviewPane extends GridPane{
 	}
 
 	public void refresh() {
-		Map<String, Speler> resultMap = new SpelerTekstLoadSave().load(new File("src/bestanden/speler.txt"));
+		Map<String, Speler> resultMap = new SpelerTekstLoadSaveStrategy().load(new File("src/bestanden/speler.txt"));
 		ArrayList<Speler> spelers = new ArrayList<>(resultMap.values());
 		Collections.sort(spelers);
 		table.setItems(FXCollections.observableArrayList(spelers));
