@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 
+/**
+ * @Author Sébastien Warlop
+ */
+
 public class GamblerOverviewPane extends GridPane{
     private TableView<Speler> table;
     private Spel spel;
