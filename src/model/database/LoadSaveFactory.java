@@ -1,11 +1,11 @@
 package model.database;
 
-public class LoadSaveStrategyFactory {
-    private static LoadSaveStrategyFactory uniqueInstance = null;
+public class LoadSaveFactory {
+    private static LoadSaveFactory uniqueInstance = null;
 
-    public static LoadSaveStrategyFactory getInstance() {
+    public static LoadSaveFactory getInstance() {
         if(uniqueInstance == null) {
-            uniqueInstance = new LoadSaveStrategyFactory();
+            uniqueInstance = new LoadSaveFactory();
         }
         return uniqueInstance;
     }
