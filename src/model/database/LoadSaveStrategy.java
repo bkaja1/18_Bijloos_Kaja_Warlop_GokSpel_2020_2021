@@ -1,9 +1,10 @@
 package model.database;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface LoadSaveStrategy {
-
-    ArrayList<Object> load();
-    void save(ArrayList<Object> spelers);
+    Map<Object, Object> load(File file);
+    void save(File file, ArrayList<Object> objects);
 }

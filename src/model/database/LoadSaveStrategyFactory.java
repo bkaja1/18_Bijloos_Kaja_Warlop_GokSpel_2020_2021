@@ -1,28 +1,26 @@
 package model.database;
 
 public class LoadSaveStrategyFactory {
-    private static LoadSaveStrategyFactory instance = null;
-    private LoadSaveStrategy loadSave = null;
-
-    private LoadSaveStrategyFactory() {}
+    private static LoadSaveStrategyFactory uniqueInstance = null;
 
     public static LoadSaveStrategyFactory getInstance() {
-        if(instance == null) {
-            instance = new LoadSaveStrategyFactory();
+        if(uniqueInstance == null) {
+            uniqueInstance = new LoadSaveStrategyFactory();
         }
-        return instance;
+        return uniqueInstance;
     }
 
-    public LoadSaveStrategy create(String type) {
-        LoadSaveEnum lsType = LoadSaveEnum.valueOf(type);
-        String klasseNaam = lsType.getKlasseNaam();
+    public LoadSaveStrategy createLoadSave(String type) {
+        LoadSaveEnum loadSaveEnum = LoadSaveEnum.valueOf(type);
+        String klasseNaam = loadSaveEnum.getKlasseNaam();
+        LoadSaveStrategy loadSaveStrategy = null;
         try {
             Class dbKlasseNaam = Class.forName(klasseNaam);
             Object object = dbKlasseNaam.newInstance();
-            loadSave = (LoadSaveStrategy)object;
-        } catch (Exception exc) {
-            exc.printStackTrace();
+            loadSaveStrategy = (LoadSaveStrategy) object;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return loadSave;
+        return loadSaveStrategy;
     }
 }

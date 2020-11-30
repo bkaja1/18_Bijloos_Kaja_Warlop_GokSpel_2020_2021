@@ -1,6 +1,7 @@
 package model.database;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -26,9 +27,11 @@ public abstract class TekstLoadSaveTemplate<K, V> {
         return returnMap;
     }
 
-    public final void save(File file, Object object) {
+    public final void save(File file, ArrayList<Object> objects) {
         try (PrintWriter printWriter = new PrintWriter(new FileWriter(file, true))) {
-            printWriter.println(objectToString(object));
+            for(Object object : objects) {
+                printWriter.println(objectToString(object));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

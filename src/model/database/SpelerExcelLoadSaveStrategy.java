@@ -5,54 +5,44 @@ import model.Speler;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SpelerExcelLoadSaveStrategy implements LoadSaveStrategy {
-
     private ExcelPlugin excelPlugin;
-    private String path;
-
-    public SpelerExcelLoadSaveStrategy(String path) {
-        if(path.isEmpty()) {
-            throw new IllegalArgumentException("Pad mag niet leeg zijn.");
-        }
-        this.path = path;
-    }
-
-    public SpelerExcelLoadSaveStrategy() {
-        this("src/bestanden/spelers.xls");
-    }
 
     @Override
-    public ArrayList<Object> load() {
+    public Map<Object, Object> load(File file) {
         excelPlugin = new ExcelPlugin();
-        ArrayList<Object> resultaat = new ArrayList<>();
+        Map<Object, Object> returnMap = new HashMap<>();
         try {
-            ArrayList<ArrayList<String>> spelers = excelPlugin.read(new File(path));
-            for(ArrayList<String> speler:spelers) {
-                resultaat.add(new Speler(speler.get(0), speler.get(1), speler.get(2), Integer.parseInt(speler.get(3))));
+            for(ArrayList<String> tokens : excelPlugin.read(file)) {
+                Speler element = new Speler(tokens.get(0), tokens.get(1), tokens.get(2), Integer.parseInt(tokens.get(3)));
+                String key = tokens.get(2);
+                returnMap.put(key, element);
             }
-        } catch (Exception exc) {
-            exc.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return resultaat;
+        return returnMap;
     }
 
     @Override
-    public void save(ArrayList<Object> spelers) {
-        ArrayList<ArrayList<String>> resultaat = new ArrayList<>();
-        for(Object o : spelers) {
-            Speler speler1 = (Speler) o;
-            ArrayList<String> speler = new ArrayList<>();
-            speler.add(speler1.getFamilienaam());
-            speler.add(speler1.getVoornaam());
-            speler.add(speler1.getSpelernaam());
-            speler.add(String.valueOf(speler1.getGoksaldo()));
-            resultaat.add(speler);
+    public void save(File file, ArrayList<Object> objects) {
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
+        for(Object object : objects) {
+            Speler speler = (Speler) object;
+            ArrayList<String> tokens = new ArrayList<>();
+            tokens.add(speler.getFamilienaam());
+            tokens.add(speler.getVoornaam());
+            tokens.add(speler.getSpelernaam());
+            tokens.add(Integer.toString(speler.getGoksaldo()));
+            result.add(tokens);
         }
         try {
-            excelPlugin.write(new File(path), resultaat);
-        } catch (Exception exc ) {
-            exc.printStackTrace();
+            excelPlugin.write(file, result);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
