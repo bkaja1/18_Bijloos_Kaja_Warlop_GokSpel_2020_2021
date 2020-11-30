@@ -11,6 +11,21 @@ public class Spel implements Observable {
 
     public Spel() {
         this.observers = new ArrayList<>();
-        this.speler = new Speler();
+        this.speler = new Speler(); //lege constructor in Speler maken?
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+
+    }
+
+    @Override
+    public void deleteObservers(Observer o) {
+        this.observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+
     }
 }
