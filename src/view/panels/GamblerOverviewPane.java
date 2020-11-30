@@ -7,19 +7,20 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import model.Spel;
 import model.Speler;
-import model.database.SpelerTekstLoadSaveStrategy;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 
 public class GamblerOverviewPane extends GridPane{
     private TableView<Speler> table;
+    private Spel spel;
 
 	public GamblerOverviewPane() {
 		this.table = new TableView<>();
+		this.spel = new Spel();
 
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
@@ -43,11 +44,11 @@ public class GamblerOverviewPane extends GridPane{
 
 		table.getColumns().addAll(colFamilienaam, colVoornaam, colSpelernaam, colGoksaldo);
 
-		this.add(table,0,1);
+		this.getChildren().addAll(table);
 	}
 
 	public void refresh() {
-		Map<String, Speler> resultMap = new SpelerTekstLoadSaveStrategy().load(new File("src/bestanden/speler.txt"));
+		Map<String, Speler> resultMap = spel.getSpelersMap();
 		ArrayList<Speler> spelers = new ArrayList<>(resultMap.values());
 		Collections.sort(spelers);
 		table.setItems(FXCollections.observableArrayList(spelers));

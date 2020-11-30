@@ -12,7 +12,7 @@ public class SpelerExcelLoadSaveStrategy implements LoadSaveStrategy {
     private ExcelPlugin excelPlugin;
 
     @Override
-    public Map<Object, Object> load(File file) {
+    public Map load(File file) {
         excelPlugin = new ExcelPlugin();
         Map<Object, Object> returnMap = new HashMap<>();
         try {

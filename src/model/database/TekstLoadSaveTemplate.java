@@ -28,7 +28,7 @@ public abstract class TekstLoadSaveTemplate<K, V> {
     }
 
     public final void save(File file, ArrayList<Object> objects) {
-        try (PrintWriter printWriter = new PrintWriter(new FileWriter(file, true))) {
+        try (PrintWriter printWriter = new PrintWriter(file)) {
             for(Object object : objects) {
                 printWriter.println(objectToString(object));
             }
