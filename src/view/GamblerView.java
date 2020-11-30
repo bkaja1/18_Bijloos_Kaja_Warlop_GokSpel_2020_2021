@@ -57,6 +57,7 @@ public class GamblerView {
 	}
 
 	public void displaySpelernaam(Speler speler) {
+		vBox.getChildren().remove(foutboodschap);
 		gokSaldo.setText("Je goksaldo is " + speler.getGoksaldo());
 		spelernaam.setEditable(false);
 		vBox.getChildren().add(gokSaldo);

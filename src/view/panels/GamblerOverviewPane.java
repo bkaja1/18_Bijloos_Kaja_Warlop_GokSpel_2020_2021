@@ -48,8 +48,7 @@ public class GamblerOverviewPane extends GridPane{
 	}
 
 	public void refresh() {
-		Map<String, Speler> resultMap = spel.getSpelersMap();
-		ArrayList<Speler> spelers = new ArrayList<>(resultMap.values());
+		ArrayList<Speler> spelers = new ArrayList<>(spel.getSpelersMap().values());
 		Collections.sort(spelers);
 		table.setItems(FXCollections.observableArrayList(spelers));
 		table.refresh();
