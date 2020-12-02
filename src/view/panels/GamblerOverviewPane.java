@@ -47,7 +47,7 @@ public class GamblerOverviewPane extends GridPane{
 
 		table.getColumns().addAll(colFamilienaam, colVoornaam, colSpelernaam, colGoksaldo);
 
-		this.add(table, 0, 0, 1, 1);
+		this.add(table, 0, 1, 1, 1);
 	}
 
 	public void refresh() {
