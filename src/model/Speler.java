@@ -61,6 +61,7 @@ public class Speler implements Comparable<Speler> {
         if(inzet < 0) throw new IllegalArgumentException("Inzet kan niet negatief zijn");
         if(inzet == 0) throw new IllegalArgumentException("Inzet kan niet 0 zijn");
         if(inzet > goksaldo) throw new IllegalArgumentException("Inzet kan niet groter zijn dan goksaldo");
+        this.inzet = inzet;
     }
 
     @Override
