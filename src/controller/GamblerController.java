@@ -14,7 +14,16 @@ public class GamblerController implements Observer {
     }
 
     public void updateSpelernaam(String spelernaam) {
-        spel.updateDisplay(spelernaam);
+        spel.updateDisplay(spel.getSpeler(spelernaam));
+    }
+
+    public void updateInzet(String spelernaam, String inzet) {
+        try {
+            spel.setInzet(spelernaam, Integer.parseInt(inzet));
+            spel.updateDisplay(null);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Inzet is geen nummer");
+        }
     }
 
     public void setView(GamblerView view) {
@@ -22,7 +31,11 @@ public class GamblerController implements Observer {
     }
 
     @Override
-    public void update(Speler speler) {
-        view.displaySpelernaam(speler);
+    public void update(Object object) {
+        if(object instanceof Speler) {
+            view.displaySpelernaam(object);
+        } else if(object == null) {
+            view.displayInzet();
+        }
     }
 }

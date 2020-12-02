@@ -1,7 +1,5 @@
 package controller;
 
-import model.Speler;
-
 public interface Observer {
-    void update(Speler speler);
+    void update(Object object);
 }

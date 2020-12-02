@@ -7,14 +7,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class SpelerDB {
-    private LoadSaveStrategy loadSaveStrategy;
     private File file;
+    private LoadSaveStrategy loadSaveStrategy;
     private Map<String, Speler> spelers;
-
-    public SpelerDB() {
-        setLoadSaveStrategy(LoadSaveFactory.getInstance().createLoadSave("SPELERTEKST"));
-        this.spelers = loadSaveStrategy.load(file);
-    }
 
     public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy) {
         this.loadSaveStrategy = loadSaveStrategy;
@@ -23,7 +18,7 @@ public class SpelerDB {
         } else if(loadSaveStrategy instanceof  SpelerExcelLoadSaveStrategy) {
             this.file = new File("src/bestanden/speler.xls");
         }
-
+        this.spelers = loadSaveStrategy.load(file);
     }
 
     public Map<String, Speler> getSpelersMap() {

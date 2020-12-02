@@ -12,23 +12,22 @@ import model.Speler;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Map;
 
 /**
  * @Author Sébastien Warlop
  */
 
 public class GamblerOverviewPane extends GridPane{
-    private TableView<Speler> table;
-    private Spel spel;
+	private TableView<Speler> table;
+	private Spel spel;
 
 	public GamblerOverviewPane() {
 		this.table = new TableView<>();
 		this.spel = new Spel();
 
 		this.setPadding(new Insets(5, 5, 5, 5));
-        this.setVgap(5);
-        this.setHgap(5);
+		this.setVgap(5);
+		this.setHgap(5);
 
 		this.add(new Label("Spelers:"), 0, 0, 1, 1);
 
@@ -48,7 +47,7 @@ public class GamblerOverviewPane extends GridPane{
 
 		table.getColumns().addAll(colFamilienaam, colVoornaam, colSpelernaam, colGoksaldo);
 
-		this.getChildren().addAll(table);
+		this.add(table, 0, 0, 1, 1);
 	}
 
 	public void refresh() {

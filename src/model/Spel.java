@@ -14,10 +14,13 @@ import java.util.Map;
 public class Spel implements Observable {
     private SpelerDB spelerDB;
     private ArrayList<Observer> observers;
+    private int volgnummer;
 
     public Spel() {
         this.spelerDB = new SpelerDB();
         this.observers = new ArrayList<>();
+        this.volgnummer = 1;
+        setLoadSaveStrategy(createLoadSave("SPELERTEKST"));
     }
 
     @Override
@@ -31,10 +34,14 @@ public class Spel implements Observable {
     }
 
     @Override
-    public void notifyObservers(Speler speler) {
+    public void notifyObservers(Object object) {
         for(Observer observer : observers) {
-            observer.update(speler);
+            observer.update(object);
         }
+    }
+
+    public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy) {
+        spelerDB.setLoadSaveStrategy(loadSaveStrategy);
     }
 
     public Map<String, Speler> getSpelersMap() {
@@ -65,6 +72,12 @@ public class Spel implements Observable {
         return spelerDB.getSpeler(spelernaam).getGoksaldo();
     }
 
+    public int getInzet(String spelernaam) {return spelerDB.getSpeler(spelernaam).getInzet(); }
+
+    public void setInzet(String spelernaam, int inzet) {
+        spelerDB.getSpeler(spelernaam).setInzet(inzet);
+    }
+
     public List<String> getLoadSaveLijst(){
         List<String> loadSaveLijst = new ArrayList<>();
         for (LoadSaveEnum loadSave: LoadSaveEnum.values()){
@@ -77,7 +90,7 @@ public class Spel implements Observable {
         return LoadSaveFactory.getInstance().createLoadSave(type);
     }
 
-    public void updateDisplay(String spelernaam) {
-        notifyObservers(getSpeler(spelernaam));
+    public void updateDisplay(Object object) {
+        notifyObservers(object);
     }
 }

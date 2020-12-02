@@ -8,6 +8,7 @@ package model;
 public class Speler implements Comparable<Speler> {
     private String familienaam, voornaam, spelernaam;
     private int goksaldo;
+    private int inzet;
 
     public Speler(String familienaam, String voornaam, String spelernaam, int goksaldo) {
         setFamilienaam(familienaam);
@@ -50,6 +51,16 @@ public class Speler implements Comparable<Speler> {
     public void setGoksaldo(int goksaldo) {
         if(goksaldo < 0) throw new IllegalArgumentException("Goksaldo kan niet negatief zijn");
         this.goksaldo = goksaldo;
+    }
+
+    public int getInzet() {
+        return inzet;
+    }
+
+    public void setInzet(int inzet) {
+        if(inzet < 0) throw new IllegalArgumentException("Inzet kan niet negatief zijn");
+        if(inzet == 0) throw new IllegalArgumentException("Inzet kan niet 0 zijn");
+        if(inzet > goksaldo) throw new IllegalArgumentException("Inzet kan niet groter zijn dan goksaldo");
     }
 
     @Override
