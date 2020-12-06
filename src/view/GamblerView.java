@@ -2,25 +2,23 @@ package view;
 
 import controller.GamblerController;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.Speler;
 
 import javax.swing.*;
 
 public class GamblerView {
 	private Stage stage = new Stage();
 	private GridPane pane1 = new GridPane();
+	private GridPane pane2 = new GridPane();
+	private GridPane pane3 = new GridPane();
 	private Label spelernaamLabel = new Label("Wat is je spelernaam?");
 	private TextField spelernaam = new TextField();
 	private Label goksaldo = new Label();
@@ -59,7 +57,7 @@ public class GamblerView {
 		inzet.setOnKeyPressed(event -> {
 			if(event.getCode().equals(KeyCode.ENTER)) {
 				try {
-					controller.updateInzet(spelernaam.getText(), inzet.getText());
+					controller.updateInzet(inzet.getText());
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
@@ -67,16 +65,19 @@ public class GamblerView {
 		});
 	}
 
-	public void displaySpelernaam(Object object) {
-		Speler speler = (Speler)object;
+	public void displayGoksaldo(int i) {
+		pane1.getChildren().remove(goksaldo);
+		pane1.getChildren().remove(inzetLabel);
+		pane1.getChildren().remove(inzet);
 		spelernaam.setEditable(false);
-		goksaldo.setText("Je goksaldo is " + speler.getGoksaldo());
+		goksaldo.setText("Je goksaldo is " + i);
 		pane1.add(goksaldo, 2, 0, 1, 1);
 		pane1.add(inzetLabel, 0, 1, 1, 1);
 		pane1.add(inzet, 1, 1, 1 ,1);
 	}
 
-	public void displayInzet() {
+	public void displayStart() {
+		pane1.getChildren().remove(startButton);
 		inzet.setEditable(false);
 		pane1.add(startButton, 0, 2, 1, 1);
 	}

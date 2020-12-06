@@ -14,13 +14,14 @@ import java.util.Map;
 public class Spel implements Observable {
     private SpelerDB spelerDB;
     private ArrayList<Observer> observers;
-    private int volgnummer;
+    private int nummer;
+    private Speler speler;
 
     public Spel() {
         this.spelerDB = new SpelerDB();
         this.observers = new ArrayList<>();
-        this.volgnummer = 1;
-        setLoadSaveStrategy(createLoadSave("SPELERTEKST"));
+        this.nummer = 1;
+        setLoadSaveStrategy(createLoadSave(LoadSaveEnum.SPELERTEKST.toString()));
     }
 
     @Override
@@ -44,6 +45,10 @@ public class Spel implements Observable {
         spelerDB.setLoadSaveStrategy(loadSaveStrategy);
     }
 
+    public int getNummer() {
+        return nummer;
+    }
+
     public Map<String, Speler> getSpelersMap() {
         return spelerDB.getSpelersMap();
     }
@@ -60,22 +65,34 @@ public class Spel implements Observable {
         return spelerDB.getSpeler(spelernaam);
     }
 
-    public String getFamilienaam(String spelernaam) {
-        return spelerDB.getSpeler(spelernaam).getFamilienaam();
+    public void setSpeler(String spelernaam) {
+        this.speler = getSpeler(spelernaam);
+        notifyObservers(this);
     }
 
-    public String getVoornaam(String spelernaam) {
-        return spelerDB.getSpeler(spelernaam).getVoornaam();
+    public String getFamilienaam() {
+        return speler.getFamilienaam();
     }
 
-    public int getGoksaldo(String spelernaam) {
-        return spelerDB.getSpeler(spelernaam).getGoksaldo();
+    public String getVoornaam() {
+        return speler.getVoornaam();
     }
 
-    public int getInzet(String spelernaam) {return spelerDB.getSpeler(spelernaam).getInzet(); }
+    public String getSpelernaam() {
+        return speler.getSpelernaam();
+    }
 
-    public void setInzet(String spelernaam, int inzet) {
-        spelerDB.getSpeler(spelernaam).setInzet(inzet);
+    public int getGoksaldo() {
+        return speler.getGoksaldo();
+    }
+
+    public int getInzet() {
+        return speler.getInzet();
+    }
+
+    public void setInzet(int inzet) {
+        speler.setInzet(inzet);
+        notifyObservers(this);
     }
 
     public List<String> getLoadSaveLijst(){

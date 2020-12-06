@@ -11,7 +11,7 @@ public class GokSpelMain extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Spel spel = new Spel();
-		AdminView adminView = new AdminView();
+		AdminView adminView = new AdminView(spel);
 		GamblerController gamblerController = new GamblerController(spel);
 		GamblerView gamblerView = new GamblerView(gamblerController);
 	}

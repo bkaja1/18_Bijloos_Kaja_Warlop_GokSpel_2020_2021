@@ -1,7 +1,6 @@
 package controller;
 
 import model.Spel;
-import model.Speler;
 import view.GamblerView;
 
 public class GamblerController implements Observer {
@@ -14,13 +13,12 @@ public class GamblerController implements Observer {
     }
 
     public void updateSpelernaam(String spelernaam) {
-        spel.updateDisplay(spel.getSpeler(spelernaam));
+        spel.setSpeler(spelernaam);
     }
 
-    public void updateInzet(String spelernaam, String inzet) {
+    public void updateInzet(String inzet) {
         try {
-            spel.setInzet(spelernaam, Integer.parseInt(inzet));
-            spel.updateDisplay(null);
+            spel.setInzet(Integer.parseInt(inzet));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Inzet is geen nummer");
         }
@@ -32,10 +30,9 @@ public class GamblerController implements Observer {
 
     @Override
     public void update(Object object) {
-        if(object instanceof Speler) {
-            view.displaySpelernaam(object);
-        } else if(object == null) {
-            view.displayInzet();
+        view.displayGoksaldo(spel.getGoksaldo());
+        if(spel.getInzet() != 0) {
+            view.displayStart();
         }
     }
 }
