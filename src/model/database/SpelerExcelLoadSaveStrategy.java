@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @Author Niels Bijloos
+ */
+
+
 public class SpelerExcelLoadSaveStrategy implements LoadSaveStrategy {
     private ExcelPlugin excelPlugin;
 
