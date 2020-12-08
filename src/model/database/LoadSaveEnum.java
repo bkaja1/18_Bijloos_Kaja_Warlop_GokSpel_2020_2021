@@ -1,5 +1,9 @@
 package model.database;
 
+/**
+ * @Author Blenda Kaja
+ */
+
  public enum LoadSaveEnum {
      SPELERTEKST("SpelerTekst", "model.database.SpelerTekstLoadSaveStrategy"),
      SPELEREXCEL("SpelerExcel", "model.database.SpelerExcelLoadSaveStrategy");

@@ -3,6 +3,10 @@ package controller;
 import model.Spel;
 import view.panels.SpelverloopPane;
 
+/**
+ * @Author Blenda Kaja
+ */
+
 public class SpelverloopController implements Observer {
     private SpelverloopPane view;
     private Spel spel;

@@ -10,7 +10,7 @@ public class LoadSaveFactory {
         return uniqueInstance;
     }
 
-    public LoadSaveStrategy createLoadSave(String type) {
+    public LoadSaveStrategy createLoadSaveStrategy(String type) {
         LoadSaveEnum loadSaveEnum = LoadSaveEnum.valueOf(type);
         String klasseNaam = loadSaveEnum.getKlasseNaam();
         LoadSaveStrategy loadSaveStrategy = null;

@@ -5,7 +5,7 @@ package model.gokstrategy;
  *
  */
 
-public class SomIs21Strategy implements VraagGokstrategy{
+public class SomIs21Strategy implements GokStrategy {
     private int som = 0;
 
     @Override

@@ -6,22 +6,26 @@ import model.database.LoadSaveEnum;
 import model.database.LoadSaveFactory;
 import model.database.LoadSaveStrategy;
 import model.database.SpelerDB;
+import model.gokstrategy.GokEnum;
+import model.gokstrategy.GokFactory;
+import model.gokstrategy.GokStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Spel implements Observable {
-    private SpelerDB spelerDB;
-    private ArrayList<Observer> observers;
     private int nummer;
+    private ArrayList<Observer> observers;
+    private SpelerDB spelerDB;
     private Speler speler;
+    private GokStrategy gokStrategy;
 
     public Spel() {
         this.spelerDB = new SpelerDB();
         this.observers = new ArrayList<>();
         this.nummer = 1;
-        setLoadSaveStrategy(createLoadSave(LoadSaveEnum.SPELERTEKST.toString()));
+        setLoadSaveStrategy(createLoadSaveStrategy(LoadSaveEnum.SPELERTEKST.toString()));
     }
 
     @Override
@@ -43,6 +47,25 @@ public class Spel implements Observable {
 
     public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy) {
         spelerDB.setLoadSaveStrategy(loadSaveStrategy);
+    }
+
+    public GokStrategy getGokStrategy() {
+        return gokStrategy;
+    }
+
+    public void setGokStrategy(GokStrategy gokStrategy) {
+        this.gokStrategy = gokStrategy;
+        notifyObservers(this);
+    }
+
+    public String getGokOmschrijving() {
+        String omschrijving = null;
+        for(GokEnum gok : GokEnum.values()) {
+            if(gok.getKlasseNaam().equals(gokStrategy.getClass().getName())) {
+                omschrijving = gok.getOmschrijving();
+            }
+        }
+        return omschrijving;
     }
 
     public int getNummer() {
@@ -95,6 +118,8 @@ public class Spel implements Observable {
         notifyObservers(this);
     }
 
+
+
     public List<String> getLoadSaveLijst(){
         List<String> loadSaveLijst = new ArrayList<>();
         for (LoadSaveEnum loadSave: LoadSaveEnum.values()){
@@ -103,8 +128,12 @@ public class Spel implements Observable {
         return loadSaveLijst;
     }
 
-    public LoadSaveStrategy createLoadSave(String type) {
-        return LoadSaveFactory.getInstance().createLoadSave(type);
+    public LoadSaveStrategy createLoadSaveStrategy(String type) {
+        return LoadSaveFactory.getInstance().createLoadSaveStrategy(type);
+    }
+
+    public GokStrategy createGokStrategy(String omschrijving) {
+        return GokFactory.createGokStrategy(omschrijving);
     }
 
     public void updateDisplay(Object object) {

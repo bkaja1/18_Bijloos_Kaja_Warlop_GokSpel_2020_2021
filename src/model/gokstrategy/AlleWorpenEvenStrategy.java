@@ -5,11 +5,10 @@ package model.gokstrategy;
  *
  */
 
-public class GewonnenStrategy implements VraagGokstrategy {
+public class AlleWorpenEvenStrategy implements GokStrategy {
 
     @Override
     public boolean heeftGewonnen(int worp) {
-        if (worp % 2 == 0) return true;
-        else return false;
+        return worp % 2 == 0;
     }
 }

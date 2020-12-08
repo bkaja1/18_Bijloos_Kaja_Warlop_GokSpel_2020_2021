@@ -6,6 +6,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * @Author Blenda Kaja
+ */
+
 public class SpelerDB {
     private File file;
     private LoadSaveStrategy loadSaveStrategy;

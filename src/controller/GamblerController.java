@@ -3,6 +3,10 @@ package controller;
 import model.Spel;
 import view.GamblerView;
 
+/**
+ * @Author Blenda Kaja
+ */
+
 public class GamblerController implements Observer {
     private GamblerView view;
     private Spel spel;
@@ -22,6 +26,10 @@ public class GamblerController implements Observer {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Inzet is geen nummer");
         }
+    }
+
+    public void updateGokStrategy(String gokStrategy) {
+        spel.setGokStrategy(spel.createGokStrategy(gokStrategy));
     }
 
     public void setView(GamblerView view) {

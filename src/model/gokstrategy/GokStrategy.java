@@ -5,6 +5,6 @@ package model.gokstrategy;
  *
  */
 
-public interface VraagGokstrategy {
+public interface GokStrategy {
     boolean heeftGewonnen(int worp);
 }

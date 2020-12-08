@@ -5,7 +5,7 @@ package model.gokstrategy;
  *
  */
 
-public class HogerDanVorigeStrategy implements VraagGokstrategy {
+public class HogerDanVorigeStrategy implements GokStrategy {
     private int vorige = 0;
 
     @Override
