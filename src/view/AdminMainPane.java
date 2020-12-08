@@ -1,6 +1,7 @@
 package view;
 
 
+import controller.GamblerOverviewController;
 import controller.SpelverloopController;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -15,7 +16,8 @@ public class AdminMainPane extends BorderPane {
         SpelverloopController spelverloopController = new SpelverloopController(spel);
         SpelverloopPane spelverloopPane = new SpelverloopPane(spelverloopController);
         Tab spelVerloopTab = new Tab("Spelverloop", spelverloopPane);
-        GamblerOverviewPane gamblerOverviewPane = new GamblerOverviewPane();
+        GamblerOverviewController gamblerOverviewController = new GamblerOverviewController(spel);
+        GamblerOverviewPane gamblerOverviewPane = new GamblerOverviewPane(gamblerOverviewController);
         Tab spelerTab = new Tab("Spelers",gamblerOverviewPane);
         Tab instellingTab = new Tab("Instellingen");
         Tab statistiekTab = new Tab("Staitieken");

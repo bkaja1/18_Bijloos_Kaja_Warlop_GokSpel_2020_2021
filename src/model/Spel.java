@@ -6,9 +6,9 @@ import model.database.LoadSaveEnum;
 import model.database.LoadSaveFactory;
 import model.database.LoadSaveStrategy;
 import model.database.SpelerDB;
-import model.gokstrategy.GokEnum;
-import model.gokstrategy.GokFactory;
-import model.gokstrategy.GokStrategy;
+import model.gokstrategies.GokEnum;
+import model.gokstrategies.GokFactory;
+import model.gokstrategies.GokStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +76,8 @@ public class Spel implements Observable {
         return spelerDB.getSpelersMap();
     }
 
-    public ArrayList<Speler> getSpelers() {
-        return spelerDB.getSpelers();
+    public List<Speler> getSpelersList() {
+        return spelerDB.getSpelersList();
     }
 
     public void addSpeler(Speler speler) {

@@ -9,7 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.gokstrategy.GokEnum;
+import model.gokstrategies.GokEnum;
 
 import javax.swing.*;
 

@@ -1,4 +1,4 @@
-package model.gokstrategy;
+package model.gokstrategies;
 
 public class GokFactory {
     public static GokStrategy createGokStrategy(String omschrijving) {

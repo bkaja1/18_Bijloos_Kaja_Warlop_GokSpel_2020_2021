@@ -1,5 +1,6 @@
 package view.panels;
 
+import controller.GamblerOverviewController;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -10,28 +11,23 @@ import javafx.scene.layout.GridPane;
 import model.Spel;
 import model.Speler;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 /**
  * @Author Sébastien Warlop
  */
 
 public class GamblerOverviewPane extends GridPane{
 	private TableView<Speler> table;
-	private Spel spel;
 
-	public GamblerOverviewPane() {
+	public GamblerOverviewPane(GamblerOverviewController controller) {
 		this.table = new TableView<>();
-		this.spel = new Spel();
+
+		controller.setView(this);
 
 		this.setPadding(new Insets(5, 5, 5, 5));
 		this.setVgap(5);
 		this.setHgap(5);
 
 		this.add(new Label("Spelers:"), 0, 0, 1, 1);
-
-		refresh();
 
 		TableColumn<Speler,String> colFamilienaam = new TableColumn<>("Familienaam");
 		colFamilienaam.setCellValueFactory(new PropertyValueFactory<>("familienaam"));
@@ -50,10 +46,8 @@ public class GamblerOverviewPane extends GridPane{
 		this.add(table, 0, 1, 1, 1);
 	}
 
-	public void refresh() {
-		ArrayList<Speler> spelers = new ArrayList<>(spel.getSpelersMap().values());
-		Collections.sort(spelers);
-		table.setItems(FXCollections.observableArrayList(spelers));
+	public void refresh(Spel spel) {
+		table.setItems(FXCollections.observableArrayList(spel.getSpelersList()));
 		table.refresh();
 	}
 }

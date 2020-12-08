@@ -1,4 +1,4 @@
-package model.gokstrategy;
+package model.gokstrategies;
 
 /**
  * @Author Niels Bijloos

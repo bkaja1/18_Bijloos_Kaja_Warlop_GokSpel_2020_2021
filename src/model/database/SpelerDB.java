@@ -4,6 +4,8 @@ import model.Speler;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,8 +31,10 @@ public class SpelerDB {
         return spelers;
     }
 
-    public ArrayList<Speler> getSpelers() {
-        return (ArrayList<Speler>) spelers.values();
+    public List<Speler> getSpelersList() {
+        List<Speler> spelersList = new ArrayList<>(spelers.values());
+        Collections.sort(spelersList);
+        return spelersList;
     }
 
     public void addSpeler(Speler speler) {

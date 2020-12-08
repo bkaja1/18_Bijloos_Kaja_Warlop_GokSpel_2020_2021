@@ -1,4 +1,4 @@
-package model.gokstrategy;
+package model.gokstrategies;
 
 /**
  * @Author Niels Bijloos
@@ -6,9 +6,9 @@ package model.gokstrategy;
  */
 
 public enum GokEnum {
-    ALLEWORPENEVENSTRATEGY("het aantal ogen is bij elke worp een even getal", "model.gokstrategy.AlleWorpenEvenStrategy", 4),
-    SOMIS21STRATEGY("de som van de ogen van alle worpen is 21", "model.gokstrategy.SomIs21Strategy", 5),
-    HOGERDANVORIGESTRATEGY("het aantal ogen is bij elke worp hoger dan bij de vorige worp", "model.gokstrategy.HogerDanVorigeStrategy", 10);
+    ALLEWORPENEVENSTRATEGY("het aantal ogen is bij elke worp een even getal", "model.gokstrategies.AlleWorpenEvenStrategy", 4),
+    SOMIS21STRATEGY("de som van de ogen van alle worpen is 21", "model.gokstrategies.SomIs21Strategy", 5),
+    HOGERDANVORIGESTRATEGY("het aantal ogen is bij elke worp hoger dan bij de vorige worp", "model.gokstrategies.HogerDanVorigeStrategy", 10);
 
     private final String omschrijving;
     private final String klasseNaam;
