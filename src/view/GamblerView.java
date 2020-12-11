@@ -15,6 +15,7 @@ import javax.swing.*;
 
 /**
  * @Author Blenda Kaja
+ * 		   Niels Bijloos
  */
 
 public class GamblerView {
@@ -36,6 +37,10 @@ public class GamblerView {
 	private Label somIs21StrategyLabel = new Label("mogelijke winst is 5x je inzet");
 	private RadioButton hogerDanVorigeStrategyRb = new RadioButton(GokEnum.HOGERDANVORIGESTRATEGY.getOmschrijving());
 	private Label hogerDanVorigeStrategyLabel = new Label("mogelijke winst is 10x je inzet");
+	private RadioButton hogerDanEenStrategyRb = new RadioButton(GokEnum.HOGERDANEENSTRATEGY.getOmschrijving());
+	private Label hogerDanEenStrategyLabel = new Label("mogelijke winst is 2x je inzet");
+	private RadioButton somIsMin6StrategyRb = new RadioButton(GokEnum.SOMISMINSTENS6STRATEGY.getOmschrijving());
+	private Label somIsMin6StrategyLabel = new Label("mogelijke winst is 2x je inzet");
 	private Button bevestigKeuzeButton = new Button("Bevestig je keuze");
 	private Button werpDobbelsteenButton = new Button("Werp dobbelsteen");
 
@@ -63,6 +68,8 @@ public class GamblerView {
 		alleWorpenEvenStrategyRb.setSelected(true);
 		somIs21StrategyRb.setToggleGroup(gokStrategyGroup);
 		hogerDanVorigeStrategyRb.setToggleGroup(gokStrategyGroup);
+		hogerDanEenStrategyRb.setToggleGroup(gokStrategyGroup);
+		somIsMin6StrategyRb.setToggleGroup(gokStrategyGroup);
 
 		root.getChildren().addAll(pane1, pane2, pane3);
 		Scene scene = new Scene(root, 600, 600);			
@@ -97,7 +104,11 @@ public class GamblerView {
 			pane2.add(somIs21StrategyLabel, 1, 2, 1, 1);
 			pane2.add(hogerDanVorigeStrategyRb, 0, 3, 1, 1);
 			pane2.add(hogerDanVorigeStrategyLabel, 1, 3, 1, 1);
-			pane2.add(bevestigKeuzeButton, 0, 4, 1, 1);
+			pane2.add(hogerDanEenStrategyRb, 0,4,1,1);
+			pane2.add(hogerDanEenStrategyLabel, 1,4,1,1);
+			pane2.add(somIsMin6StrategyRb, 0,5,1,1);
+			pane2.add(somIsMin6StrategyLabel, 1,5,1,1);
+			pane2.add(bevestigKeuzeButton, 0, 6, 1, 1);
 		});
 
 		bevestigKeuzeButton.setOnAction(event -> {
@@ -109,6 +120,10 @@ public class GamblerView {
 			somIs21StrategyLabel.setDisable(true);
 			hogerDanVorigeStrategyRb.setDisable(true);
 			hogerDanVorigeStrategyLabel.setDisable(true);
+			hogerDanEenStrategyRb.setDisable(true);
+			hogerDanEenStrategyLabel.setDisable(true);
+			somIsMin6StrategyRb.setDisable(true);
+			somIsMin6StrategyLabel.setDisable(true);
 			bevestigKeuzeButton.setDisable(true);
 			pane3.add(werpDobbelsteenButton, 0, 0, 1, 1);
 		});

@@ -8,7 +8,9 @@ package model.gokstrategies;
 public enum GokEnum {
     ALLEWORPENEVENSTRATEGY("het aantal ogen is bij elke worp een even getal", "model.gokstrategies.AlleWorpenEvenStrategy", 4),
     SOMIS21STRATEGY("de som van de ogen van alle worpen is 21", "model.gokstrategies.SomIs21Strategy", 5),
-    HOGERDANVORIGESTRATEGY("het aantal ogen is bij elke worp hoger dan bij de vorige worp", "model.gokstrategies.HogerDanVorigeStrategy", 10);
+    HOGERDANVORIGESTRATEGY("het aantal ogen is bij elke worp hoger dan bij de vorige worp", "model.gokstrategies.HogerDanVorigeStrategy", 10),
+    HOGERDANEENSTRATEGY("het aantal ogen is bij elke worp hoger dan 1", "model.gokstrategies.HogerDanEenStrategy", 2),
+    SOMISMINSTENS6STRATEGY("de som van alle worpen is minstens 6", "model.gokstrategies.SomIsMin6Strategy", 2);
 
     private final String omschrijving;
     private final String klasseNaam;
