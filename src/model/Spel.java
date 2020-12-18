@@ -258,18 +258,7 @@ public class Spel implements WaitObservable, GameObservable {
             addGoksaldo(-getInzet());
         }
         spelerDB.addSpeler(speler);
-        notifyWaitObservers("end");
-    }
-
-    public void startNewGame() {
-        this.nummer++;
-        this.speler = null;
-        this.gokStrategy = null;
-        notifyWaitObservers("start");
-    }
-
-    public void closeApp() {
-        notifyWaitObservers("close");
+        notifyWaitObservers("gewonnen");
     }
 
     public List<String> getLoadSaveLijst(){

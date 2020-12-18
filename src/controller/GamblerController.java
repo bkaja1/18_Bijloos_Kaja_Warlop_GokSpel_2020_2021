@@ -37,26 +37,14 @@ public class GamblerController implements WaitObserver, GameObserver {
         spel.getState().throwDice(i);
     }
 
-    public void startNewGame() {
-        spel.getState().startNewGame();
-    }
-
-    public void closeApp() {
-        spel.getState().closeApp();
-    }
-
     public void setView(GamblerView view) {
         this.view = view;
     }
 
     @Override
     public void updateWait(String wait) {
-        if(wait.equals("start")) {
-            //view.startNewGame();
-        } else if(wait.equals("end")) {
+        if(wait.equals("end")) {
             view.displayResult(spel.isGewonnen(), spel.getGoksaldo());
-        } else if(wait.equals("close")) {
-            //view.closeApp();
         }
     }
 
