@@ -140,15 +140,12 @@ public class GamblerView {
 		});
 
 		inzet.setOnKeyPressed(event -> {
-			if(!inzet.getText().trim().isEmpty()) {
-				if (event.getCode().equals(KeyCode.ENTER)) {
-					System.out.println(inzet.getText());
-					try {
-						controller.updateInzet(inzet.getText());
-						inzet.setEditable(false);
-					} catch (Exception e) {
-						JOptionPane.showMessageDialog(null, e.getMessage());
-					}
+			if (event.getCode().equals(KeyCode.ENTER)) {
+				try {
+					controller.updateInzet(inzet.getText());
+					inzet.setEditable(false);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 			}
 		});
