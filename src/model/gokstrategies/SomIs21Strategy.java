@@ -7,13 +7,17 @@ package model.gokstrategies;
  */
 
 public class SomIs21Strategy implements GokStrategy {
+    private int aantal = 0;
     private int som = 0;
 
     @Override
-    public boolean heeftGewonnen(int worp) {
+    public boolean evalueerGok(int worp) {
+        aantal++;
         som += worp;
 
-        return som == 21;
+        if(aantal == 4) {
+            return som == 21;
+        } else return true;
     }
 
 }

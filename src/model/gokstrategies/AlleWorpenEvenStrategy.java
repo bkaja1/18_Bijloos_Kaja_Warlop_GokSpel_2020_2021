@@ -8,7 +8,7 @@ package model.gokstrategies;
 public class AlleWorpenEvenStrategy implements GokStrategy {
 
     @Override
-    public boolean heeftGewonnen(int worp) {
+    public boolean evalueerGok(int worp) {
         return worp % 2 == 0;
     }
 }

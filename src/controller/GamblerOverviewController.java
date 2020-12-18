@@ -7,13 +7,14 @@ import view.panels.GamblerOverviewPane;
  * @Author Blenda Kaja
  */
 
-public class GamblerOverviewController implements Observer {
+public class GamblerOverviewController implements WaitObserver, GameObserver {
     private GamblerOverviewPane view;
     private Spel spel;
 
     public GamblerOverviewController(Spel spel) {
         this.spel = spel;
-        spel.addObserver(this);
+        spel.addWaitObserver(this);
+        spel.addGameObserver(this);
     }
 
     public void setView(GamblerOverviewPane view) {
@@ -22,7 +23,12 @@ public class GamblerOverviewController implements Observer {
     }
 
     @Override
-    public void update(Object object) {
+    public void updateWait(String wait) {
+
+    }
+
+    @Override
+    public void updateGame(Object object) {
         view.refresh(spel);
     }
 }

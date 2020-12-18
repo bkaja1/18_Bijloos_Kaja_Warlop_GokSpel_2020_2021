@@ -7,29 +7,42 @@ import view.GamblerView;
  * @Author Blenda Kaja
  */
 
-public class GamblerController implements Observer {
+public class GamblerController implements WaitObserver, GameObserver {
     private GamblerView view;
     private Spel spel;
 
     public GamblerController(Spel spel) {
         this.spel = spel;
-        spel.addObserver(this);
+        spel.addWaitObserver(this);
+        spel.addGameObserver(this);
     }
 
     public void updateSpelernaam(String spelernaam) {
-        spel.setSpeler(spelernaam);
+        spel.getState().enterSpelernaam(spelernaam);
     }
 
     public void updateInzet(String inzet) {
         try {
-            spel.setInzet(Integer.parseInt(inzet));
+            spel.getState().enterInzet(Integer.parseInt(inzet));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Inzet is geen nummer");
         }
     }
 
     public void updateGokStrategy(String gokStrategy) {
-        spel.setGokStrategy(spel.createGokStrategy(gokStrategy));
+        spel.getState().confirmChoice(spel.createGokStrategy(gokStrategy));
+    }
+
+    public void throwDice(int i) {
+        spel.getState().throwDice(i);
+    }
+
+    public void startNewGame() {
+        spel.getState().startNewGame();
+    }
+
+    public void closeApp() {
+        spel.getState().closeApp();
     }
 
     public void setView(GamblerView view) {
@@ -37,10 +50,27 @@ public class GamblerController implements Observer {
     }
 
     @Override
-    public void update(Object object) {
-        view.displayGoksaldo(spel.getGoksaldo());
-        if(spel.getInzet() != 0) {
-            view.displayStart();
+    public void updateWait(String wait) {
+        if(wait.equals("start")) {
+            //view.startNewGame();
+        } else if(wait.equals("end")) {
+            view.displayResult(spel.isGewonnen(), spel.getGoksaldo());
+        } else if(wait.equals("close")) {
+            //view.closeApp();
+        }
+    }
+
+    @Override
+    public void updateGame(Object object) {
+        if(spel.getState() == spel.getSpelerState()) {
+            view.displayGoksaldo(spel.getGoksaldo());
+        }
+        if(spel.getState() == spel.getInzetState()) {
+            view.setEditableInzet(false);
+            view.setDisableStartButton(false);
+        }
+        if(spel.getState() == spel.getPlayState()) {
+            view.setEditableInzet(spel.getWorpen().size() == 2);
         }
     }
 }

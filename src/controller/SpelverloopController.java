@@ -7,13 +7,14 @@ import view.panels.SpelverloopPane;
  * @Author Blenda Kaja
  */
 
-public class SpelverloopController implements Observer {
+public class SpelverloopController implements WaitObserver, GameObserver {
     private SpelverloopPane view;
     private Spel spel;
 
     public SpelverloopController(Spel spel) {
         this.spel = spel;
-        spel.addObserver(this);
+        spel.addWaitObserver(this);
+        spel.addGameObserver(this);
     }
 
     public void setView(SpelverloopPane view) {
@@ -21,9 +22,14 @@ public class SpelverloopController implements Observer {
     }
 
     @Override
-    public void update(Object object) {
-        if(spel.getInzet() != 0) {
-            view.display(spel);
+    public void updateWait(String wait) {
+        if(wait.equals("end")) {
+            view.displayGewonnen(spel);
         }
+    }
+
+    @Override
+    public void updateGame(Object object) {
+        view.display(spel);
     }
 }

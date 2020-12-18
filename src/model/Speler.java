@@ -53,6 +53,10 @@ public class Speler implements Comparable<Speler> {
         this.goksaldo = goksaldo;
     }
 
+    public void addGoksaldo(int i) {
+        goksaldo += i;
+    }
+
     public int getInzet() {
         return inzet;
     }

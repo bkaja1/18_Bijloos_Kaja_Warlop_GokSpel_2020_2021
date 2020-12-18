@@ -42,7 +42,7 @@ public class SpelerDB {
            throw new IllegalArgumentException("Speler is ongeldig");
         }
         spelers.put(speler.getSpelernaam(), speler);
-        loadSaveStrategy.save(file, (ArrayList<Object>) spelers);
+        loadSaveStrategy.save(file, new ArrayList<>(spelers.values()));
     }
 
     public Speler getSpeler(String spelernaam) {

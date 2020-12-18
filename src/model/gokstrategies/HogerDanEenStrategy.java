@@ -6,7 +6,7 @@ package model.gokstrategies;
 
 public class HogerDanEenStrategy implements GokStrategy{
     @Override
-    public boolean heeftGewonnen(int worp) {
+    public boolean evalueerGok(int worp) {
         return worp > 1;
     }
 }
