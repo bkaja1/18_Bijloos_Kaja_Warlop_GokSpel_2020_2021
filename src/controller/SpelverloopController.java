@@ -23,7 +23,7 @@ public class SpelverloopController implements WaitObserver, GameObserver {
 
     @Override
     public void updateWait(String wait) {
-        if(wait.equals("end")) {
+        if(wait.equals("gewonnen")) {
             view.displayGewonnen(spel);
         }
     }

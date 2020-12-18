@@ -57,6 +57,6 @@ public class SpelverloopPane extends GridPane {
     public void displayGewonnen(Spel spel) {
         worpen.setText("De worpen van " + spel.getSpelernaam() + ":" + spel.getWorpenToString());
         gewonnen.setText(spel.getSpelernaam() + " heeft " + (spel.isGewonnen()?"":"NIET ") + "gewonnen");
-        goksaldo.setText("Nieuwe goksaldo: " + spel.getGoksaldo());
+        goksaldo.setText("Nieuwe goksaldo: " + spel.getGoksaldo() + " €");
     }
 }

@@ -1,7 +1,6 @@
 package model.states;
 
 import model.Spel;
-import model.gokstrategies.GokStrategy;
 
 public class InzetState implements State {
     private Spel spel;

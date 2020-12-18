@@ -18,28 +18,27 @@ import java.util.List;
 import java.util.Map;
 
 public class Spel implements WaitObservable, GameObservable {
-    private int nummer;
-    private SpelerDB spelerDB;
-    private Speler speler;
-    private ArrayList<Integer> worpen;
-    private boolean gewonnen;
     private ArrayList<WaitObserver> waitObservers;
     private ArrayList<GameObserver> gameObservers;
+    private SpelerDB spelerDB;
+    private Speler speler;
+    private int nummer;
+    private ArrayList<Integer> worpen;
+    private boolean gewonnen;
     private GokStrategy gokStrategy;
     private State waitState;
     private State spelerState;
     private State inzetState;
-    private State startState;
     private State chooseState;
     private State playState;
     private State state;
 
     public Spel() {
-        this.nummer = 1;
-        this.spelerDB = new SpelerDB();
-        this.worpen = new ArrayList<>();
         this.waitObservers = new ArrayList<>();
         this.gameObservers = new ArrayList<>();
+        this.spelerDB = new SpelerDB();
+        this.nummer = 1;
+        this.worpen = new ArrayList<>();
         setLoadSaveStrategy(createLoadSaveStrategy(LoadSaveEnum.SPELERTEKST.toString()));
         setWaitState(new WaitState(this));
         setSpelerState(new SpelerState(this));
@@ -85,85 +84,6 @@ public class Spel implements WaitObservable, GameObservable {
 
     public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy) {
         spelerDB.setLoadSaveStrategy(loadSaveStrategy);
-    }
-
-    public GokStrategy getGokStrategy() {
-        return gokStrategy;
-    }
-
-    public void setGokStrategy(GokStrategy gokStrategy) {
-        this.gokStrategy = gokStrategy;
-        notifyGameObservers(this);
-    }
-
-    public String getGokOmschrijving() {
-        String omschrijving = null;
-        for(GokEnum gok : GokEnum.values()) {
-            if(gok.getKlasseNaam().equals(gokStrategy.getClass().getName())) {
-                omschrijving = gok.getOmschrijving();
-            }
-        }
-        return omschrijving;
-    }
-
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
-    }
-
-    public State getWaitState() {
-        return waitState;
-    }
-
-    public void setWaitState(State waitState) {
-        this.waitState = waitState;
-    }
-
-    public State getSpelerState() {
-        return spelerState;
-    }
-
-    public void setSpelerState(State spelerState) {
-        this.spelerState = spelerState;
-    }
-
-    public State getInzetState() {
-        return inzetState;
-    }
-
-    public void setInzetState(State inzetState) {
-        this.inzetState = inzetState;
-    }
-
-    public State getStartState() {
-        return startState;
-    }
-
-    public void setStartState(State startState) {
-        this.startState = startState;
-    }
-
-    public State getChooseState() {
-        return chooseState;
-    }
-
-    public void setChooseState(State chooseState) {
-        this.chooseState = chooseState;
-    }
-
-    public State getPlayState() {
-        return playState;
-    }
-
-    public void setPlayState(State playState) {
-        this.playState = playState;
-    }
-
-    public int getNummer() {
-        return nummer;
     }
 
     public Map<String, Speler> getSpelersMap() {
@@ -229,6 +149,22 @@ public class Spel implements WaitObservable, GameObservable {
         notifyGameObservers(this);
     }
 
+    public List<String> getLoadSaveLijst(){
+        List<String> loadSaveLijst = new ArrayList<>();
+        for(LoadSaveEnum loadSave: LoadSaveEnum.values()){
+            loadSaveLijst.add(loadSave.toString());
+        }
+        return loadSaveLijst;
+    }
+
+    public LoadSaveStrategy createLoadSaveStrategy(String type) {
+        return LoadSaveFactory.getInstance().createLoadSaveStrategy(type);
+    }
+
+    public int getNummer() {
+        return nummer;
+    }
+
     public ArrayList<Integer> getWorpen() {
         return worpen;
     }
@@ -253,37 +189,92 @@ public class Spel implements WaitObservable, GameObservable {
     public void setGewonnen(boolean gewonnen) {
         this.gewonnen = gewonnen;
         if(gewonnen) {
-            addGoksaldo(getInzet()*getGokEnum().getWinstfactor());
+            addGoksaldo(getInzet()*getWinstfactor());
         } else {
             addGoksaldo(-getInzet());
         }
-        spelerDB.addSpeler(speler);
+        addSpeler(speler);
         notifyWaitObservers("gewonnen");
     }
 
-    public List<String> getLoadSaveLijst(){
-        List<String> loadSaveLijst = new ArrayList<>();
-        for(LoadSaveEnum loadSave: LoadSaveEnum.values()){
-            loadSaveLijst.add(loadSave.toString());
-        }
-        return loadSaveLijst;
+    public GokStrategy getGokStrategy() {
+        return gokStrategy;
     }
 
-    public GokEnum getGokEnum() {
-        GokEnum gokEnum = null;
-        for(GokEnum g: GokEnum.values()){
-            if(g.getKlasseNaam().equals(gokStrategy.getClass().getName())) {
-                gokEnum = g;
+    public void setGokStrategy(GokStrategy gokStrategy) {
+        this.gokStrategy = gokStrategy;
+        notifyGameObservers(this);
+    }
+
+    public String getGokOmschrijving() {
+        String omschrijving = null;
+        for(GokEnum gok : GokEnum.values()) {
+            if(gok.getKlasseNaam().equals(gokStrategy.getClass().getName())) {
+                omschrijving = gok.getOmschrijving();
             }
         }
-        return gokEnum;
+        return omschrijving;
     }
 
-    public LoadSaveStrategy createLoadSaveStrategy(String type) {
-        return LoadSaveFactory.getInstance().createLoadSaveStrategy(type);
+    public int getWinstfactor() {
+        int winstfactor = 0;
+        for(GokEnum gok: GokEnum.values()){
+            if(gok.getKlasseNaam().equals(gokStrategy.getClass().getName())) {
+                winstfactor = gok.getWinstfactor();
+            }
+        }
+        return winstfactor;
     }
 
     public GokStrategy createGokStrategy(String omschrijving) {
         return GokFactory.createGokStrategy(omschrijving);
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public State getWaitState() {
+        return waitState;
+    }
+
+    public void setWaitState(State waitState) {
+        this.waitState = waitState;
+    }
+
+    public State getSpelerState() {
+        return spelerState;
+    }
+
+    public void setSpelerState(State spelerState) {
+        this.spelerState = spelerState;
+    }
+
+    public State getInzetState() {
+        return inzetState;
+    }
+
+    public void setInzetState(State inzetState) {
+        this.inzetState = inzetState;
+    }
+
+    public State getChooseState() {
+        return chooseState;
+    }
+
+    public void setChooseState(State chooseState) {
+        this.chooseState = chooseState;
+    }
+
+    public State getPlayState() {
+        return playState;
+    }
+
+    public void setPlayState(State playState) {
+        this.playState = playState;
     }
 }

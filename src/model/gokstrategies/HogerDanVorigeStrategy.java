@@ -9,9 +9,9 @@ public class HogerDanVorigeStrategy implements GokStrategy {
     private int vorige = 0;
 
     @Override
-    public boolean evalueerGok(int worp) {
-        if (worp > vorige) {
-            vorige = worp;
+    public boolean evalueerGok(int i) {
+        if (i > vorige) {
+            vorige = i;
             return true;
         } else {
             return false;

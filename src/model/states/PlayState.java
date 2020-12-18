@@ -19,11 +19,12 @@ public class PlayState implements State {
     @Override
     public void throwDice(int i) {
         spel.addWorp(i);
-        if(!spel.getGokStrategy().evalueerGok(i)) {
+        boolean b = spel.getGokStrategy().evalueerGok(i);
+        if(!b) {
             spel.setGewonnen(false);
             spel.setState(spel.getWaitState());
         } else if (spel.getWorpen().size() == 4) {
-            spel.setGewonnen(spel.getGokStrategy().evalueerGok(i));
+            spel.setGewonnen(b);
             spel.setState(spel.getWaitState());
         }
     }

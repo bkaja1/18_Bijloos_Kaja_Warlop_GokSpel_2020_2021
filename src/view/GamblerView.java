@@ -14,6 +14,7 @@ import javafx.stage.StageStyle;
 import model.gokstrategies.GokEnum;
 
 import javax.swing.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Author Blenda Kaja
@@ -34,8 +35,8 @@ public class GamblerView {
 	private Button startButton = new Button("Start");
 	private final ToggleGroup gokStrategyGroup = new ToggleGroup();
 	private Label gokStrategyLabel = new Label("Kies je gok strategie uit onderstaande lijst");
-	private RadioButton alleWorpenEvenStrategyRb = new RadioButton(GokEnum.ALLEWORPENEVENSTRATEGY.getOmschrijving());
-	private Label alleWorpenEvenStrategyLabel = new Label("mogelijke winst is 4x je inzet");
+	private RadioButton EvenStrategyRb = new RadioButton(GokEnum.EVENSTRATEGY.getOmschrijving());
+	private Label EvenStrategyLabel = new Label("mogelijke winst is 4x je inzet");
 	private RadioButton somIs21StrategyRb = new RadioButton(GokEnum.SOMIS21STRATEGY.getOmschrijving());
 	private Label somIs21StrategyLabel = new Label("mogelijke winst is 5x je inzet");
 	private RadioButton hogerDanVorigeStrategyRb = new RadioButton(GokEnum.HOGERDANVORIGESTRATEGY.getOmschrijving());
@@ -70,15 +71,10 @@ public class GamblerView {
 		pane3.setVgap(5);
 		pane3.setHgap(5);
 
-		pane1.add(spelernaamLabel, 0, 0, 1, 1);
-		pane1.add(spelernaam, 1, 0, 1, 1);
-		pane1.add(goksaldo, 2, 0, 1, 1);
 		inzet.setEditable(false);
-		pane1.add(inzetLabel, 0, 1, 1, 1);
-		pane1.add(inzet, 1, 1, 1, 1);
 		startButton.setDisable(true);
-		alleWorpenEvenStrategyRb.setDisable(true);
-		alleWorpenEvenStrategyLabel.setDisable(true);
+		EvenStrategyRb.setDisable(true);
+		EvenStrategyLabel.setDisable(true);
 		somIs21StrategyRb.setDisable(true);
 		somIs21StrategyLabel.setDisable(true);
 		hogerDanVorigeStrategyRb.setDisable(true);
@@ -88,10 +84,27 @@ public class GamblerView {
 		somIsMin6StrategyRb.setDisable(true);
 		somIsMin6StrategyLabel.setDisable(true);
 		bevestigKeuzeButton.setDisable(true);
+		bevestigKeuzeButton.setDisable(true);
+		werpDobbelsteenButton.setDisable(true);
+		EvenStrategyRb.setToggleGroup(gokStrategyGroup);
+		EvenStrategyRb.setSelected(true);
+		somIs21StrategyRb.setToggleGroup(gokStrategyGroup);
+		hogerDanVorigeStrategyRb.setToggleGroup(gokStrategyGroup);
+		hogerDanEenStrategyRb.setToggleGroup(gokStrategyGroup);
+		somIsMin6StrategyRb.setToggleGroup(gokStrategyGroup);
+		result.setTextFill(Color.RED);
+
+		pane1.add(spelernaamLabel, 0, 0, 1, 1);
+		pane1.add(spelernaam, 1, 0, 1, 1);
+		pane1.add(goksaldo, 2, 0, 1, 1);
+
+		pane1.add(inzetLabel, 0, 1, 1, 1);
+		pane1.add(inzet, 1, 1, 1, 1);
 		pane1.add(startButton, 1, 2, 1, 1);
+
 		pane2.add(gokStrategyLabel, 0, 0, 1, 1);
-		pane2.add(alleWorpenEvenStrategyRb, 0, 1, 1, 1);
-		pane2.add(alleWorpenEvenStrategyLabel, 1, 1, 1, 1);
+		pane2.add(EvenStrategyRb, 0, 1, 1, 1);
+		pane2.add(EvenStrategyLabel, 1, 1, 1, 1);
 		pane2.add(somIs21StrategyRb, 0, 2, 1, 1);
 		pane2.add(somIs21StrategyLabel, 1, 2, 1, 1);
 		pane2.add(hogerDanVorigeStrategyRb, 0, 3, 1, 1);
@@ -100,23 +113,13 @@ public class GamblerView {
 		pane2.add(hogerDanEenStrategyLabel, 1,4,1,1);
 		pane2.add(somIsMin6StrategyRb, 0,5,1,1);
 		pane2.add(somIsMin6StrategyLabel, 1,5,1,1);
-		bevestigKeuzeButton.setDisable(true);
 		pane2.add(bevestigKeuzeButton, 0, 6, 1, 1);
-		werpDobbelsteenButton.setDisable(true);
+
 		pane3.add(werpDobbelsteenButton, 0, 0, 1, 1);
 		pane3.add(worp1, 0, 1, 1, 1);
 		pane3.add(worp2, 0, 2, 1, 1);
 		pane3.add(worp3, 0, 3, 1, 1);
 		pane3.add(worp4, 0, 4, 1, 1);
-
-		alleWorpenEvenStrategyRb.setToggleGroup(gokStrategyGroup);
-		alleWorpenEvenStrategyRb.setSelected(true);
-		somIs21StrategyRb.setToggleGroup(gokStrategyGroup);
-		hogerDanVorigeStrategyRb.setToggleGroup(gokStrategyGroup);
-		hogerDanEenStrategyRb.setToggleGroup(gokStrategyGroup);
-		somIsMin6StrategyRb.setToggleGroup(gokStrategyGroup);
-
-		result.setTextFill(Color.RED);
 
 		pane.setTop(pane1);
 		pane.setCenter(pane2);
@@ -133,6 +136,7 @@ public class GamblerView {
 			if(event.getCode().equals(KeyCode.ENTER)) {
 				try {
 					controller.updateSpelernaam(spelernaam.getText());
+					spelernaam.setEditable(false);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
@@ -154,8 +158,8 @@ public class GamblerView {
 			try {
 				startButton.setDisable(true);
 				bevestigKeuzeButton.setDisable(false);
-				alleWorpenEvenStrategyRb.setDisable(false);
-				alleWorpenEvenStrategyLabel.setDisable(false);
+				EvenStrategyRb.setDisable(false);
+				EvenStrategyLabel.setDisable(false);
 				somIs21StrategyRb.setDisable(false);
 				somIs21StrategyLabel.setDisable(false);
 				hogerDanVorigeStrategyRb.setDisable(false);
@@ -174,8 +178,8 @@ public class GamblerView {
 			try {
 				RadioButton gokStrategyRb = (RadioButton) gokStrategyGroup.getSelectedToggle();
 				controller.updateGokStrategy(gokStrategyRb.getText());
-				alleWorpenEvenStrategyRb.setDisable(true);
-				alleWorpenEvenStrategyLabel.setDisable(true);
+				EvenStrategyRb.setDisable(true);
+				EvenStrategyLabel.setDisable(true);
 				somIs21StrategyRb.setDisable(true);
 				somIs21StrategyLabel.setDisable(true);
 				hogerDanVorigeStrategyRb.setDisable(true);
@@ -211,7 +215,6 @@ public class GamblerView {
 	}
 
 	public void displayGoksaldo(int i) {
-		spelernaam.setEditable(false);
 		goksaldo.setText("Je goksaldo is " + i);
 		inzet.setEditable(true);
 	}

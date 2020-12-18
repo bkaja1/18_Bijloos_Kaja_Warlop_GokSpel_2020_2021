@@ -6,5 +6,5 @@ package model.gokstrategies;
  */
 
 public interface GokStrategy {
-    boolean evalueerGok(int worp);
+    boolean evalueerGok(int i);
 }

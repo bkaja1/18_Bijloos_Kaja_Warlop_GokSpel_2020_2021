@@ -8,8 +8,8 @@ public class SomIsMin6Strategy  implements GokStrategy{
     private int som = 0;
 
     @Override
-    public boolean evalueerGok(int worp) {
-        som += worp;
+    public boolean evalueerGok(int i) {
+        som += i;
         return som <= 6;
     }
 }
