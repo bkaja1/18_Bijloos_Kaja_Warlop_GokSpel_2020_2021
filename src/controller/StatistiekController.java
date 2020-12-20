@@ -8,7 +8,7 @@ import view.panels.StatistiekPane;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class StatistiekController implements WaitObserver, GameObserver{
+public class StatistiekController implements WaitObserver{
 
     private StatistiekPane view;
     private Spel spel;
@@ -20,20 +20,22 @@ public class StatistiekController implements WaitObserver, GameObserver{
     public StatistiekController(Spel spel) {
         this.spel = spel;
         spel.addWaitObserver(this);
-        spel.addGameObserver(this);
+        //spel.addGameObserver(this);
     }
 
     public void setView(StatistiekPane view) {
         this.view = view;
     }
 
-    @Override
+   /* @Override
     public void updateGame(Object object) {
 
-    }
+    }*/
 
     @Override
     public void updateWait(String wait) {
-
+        if(wait.equals("gewonnen")) {
+            view.refresh(spel);
+        }
     }
 }
