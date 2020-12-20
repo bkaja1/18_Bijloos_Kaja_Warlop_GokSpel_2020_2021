@@ -10,10 +10,11 @@ import model.gokstrategies.EvenStrategy;
 import model.gokstrategies.GokStrategy;
 import model.gokstrategies.HogerDanEenStrategy;
 
-import javax.swing.table.TableColumn;
-import javax.swing.text.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import java.awt.*;
 import java.util.Observable;
+
 
 /**
  * @Author Sébastien Warlop
@@ -35,15 +36,14 @@ public class StatistiekPane extends GridPane {
         lblHoofding.setFont(new Font("Arial", 20, 10));
 
         table = new TableView<GokStrategy>();
-        refresh();
 
         TableColumn<GokStrategy, String> colGokStrategy = new TableColumn<>("Gok Strategy");
         colGokStrategy.setMinWidth(120);
-        colGokStrategy.setCellValueFactory(new PropertyValueFactory<>("gokStrategyString"));
+        colGokStrategy.setCellValueFactory(new PropertyValueFactory<>("omschrijving"));
 
         TableColumn<GokStrategy, Integer> colAantal = new TableColumn<>("aantal spellen");
         colAantal.setMinWidth(100);
-        colAantal.setCellValueFactory(new PropertyValueFactory<>("aantal"));
+        colAantal.setCellValueFactory(new PropertyValueFactory<>("gekozen"));
 
         TableColumn<GokStrategy, Integer> colWon = new TableColumn<>("aantal gewonnen spellen");
         colWon.setMinWidth(100);
@@ -51,11 +51,11 @@ public class StatistiekPane extends GridPane {
 
         TableColumn<GokStrategy, Double> colBetTotal = new TableColumn<>("euro inzet");
         colBetTotal.setMinWidth(100);
-        colBetTotal.setCellValueFactory(new PropertyValueFactory<>("TotaleInzet"));
+        colBetTotal.setCellValueFactory(new PropertyValueFactory<>("inzet"));
 
         TableColumn<GokStrategy, Double> colWonTotal = new TableColumn<>("euro gewonnen");
         colWonTotal.setMinWidth(100);
-        colWonTotal.setCellValueFactory(new PropertyValueFactory<>("TotaalGewonnen"));
+        colWonTotal.setCellValueFactory(new PropertyValueFactory<>("bedrag"));
 
         table.getColumns().addAll(colGokStrategy, colAantal, colWon, colBetTotal, colWonTotal);
 
@@ -63,7 +63,7 @@ public class StatistiekPane extends GridPane {
     }
 
     public void refresh(Spel spel) {
-        table.setItems(FXCollections.observableArrayList(spel.getSpelersList()));
+        table.setItems(FXCollections.observableArrayList(spel.getGokStrategies()));
         table.refresh();
     }
 }
