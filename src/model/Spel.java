@@ -8,12 +8,11 @@ import model.database.LoadSaveEnum;
 import model.database.LoadSaveFactory;
 import model.database.LoadSaveStrategy;
 import model.database.SpelerDB;
-import model.gokstrategies.GokEnum;
-import model.gokstrategies.GokFactory;
-import model.gokstrategies.GokStrategy;
+import model.gokstrategies.*;
 import model.states.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +25,7 @@ public class Spel implements WaitObservable, GameObservable {
     private ArrayList<Integer> worpen;
     private boolean gewonnen;
     private GokStrategy gokStrategy;
+    private Map<String, GokStrategy> gokStrategies;
     private State waitState;
     private State spelerState;
     private State inzetState;
@@ -39,6 +39,12 @@ public class Spel implements WaitObservable, GameObservable {
         this.spelerDB = new SpelerDB();
         this.nummer = 1;
         this.worpen = new ArrayList<>();
+        this.gokStrategies = new HashMap<>();
+        gokStrategies.put(GokEnum.EVENSTRATEGY.getOmschrijving(), new EvenStrategy());
+        gokStrategies.put(GokEnum.SOMIS21STRATEGY.getOmschrijving(), new SomIs21Strategy());
+        gokStrategies.put(GokEnum.HOGERDANVORIGESTRATEGY.getOmschrijving(), new HogerDanVorigeStrategy());
+        gokStrategies.put(GokEnum.HOGERDANEENSTRATEGY.getOmschrijving(), new HogerDanEenStrategy());
+        gokStrategies.put(GokEnum.SOMISMINSTENS6STRATEGY.getOmschrijving(), new SomIsMin6Strategy());
         setLoadSaveStrategy(createLoadSaveStrategy(LoadSaveEnum.SPELERTEKST.toString()));
         setWaitState(new WaitState(this));
         setSpelerState(new SpelerState(this));
@@ -194,6 +200,14 @@ public class Spel implements WaitObservable, GameObservable {
             addGoksaldo(-getInzet());
         }
         addSpeler(speler);
+        gokStrategies.get(gokStrategy.getOmschrijving()).addGekozen();
+        if(gewonnen) {
+            gokStrategies.get(gokStrategy.getOmschrijving()).addGewonnen();
+        }
+        gokStrategies.get(gokStrategy.getOmschrijving()).addInzet(speler.getInzet());
+        if(gewonnen) {
+            gokStrategies.get(gokStrategy.getOmschrijving()).addBedrag(speler.getInzet()*getWinstfactor());
+        }
         notifyWaitObservers("gewonnen");
     }
 
@@ -228,6 +242,10 @@ public class Spel implements WaitObservable, GameObservable {
 
     public GokStrategy createGokStrategy(String omschrijving) {
         return GokFactory.createGokStrategy(omschrijving);
+    }
+
+    public ArrayList<GokStrategy> getGokStrategies() {
+        return new ArrayList<GokStrategy>(gokStrategies.values());
     }
 
     public State getState() {
