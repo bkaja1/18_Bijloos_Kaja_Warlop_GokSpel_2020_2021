@@ -21,11 +21,11 @@ public class PlayState implements State {
         spel.addWorp(i);
         boolean b = spel.getGokStrategy().evalueerGok(i);
         if(!b) {
+            spel.setState(spel.getWaitState());
             spel.setGewonnen(false);
-            spel.setState(spel.getWaitState());
         } else if (spel.getWorpen().size() == 4) {
-            spel.setGewonnen(b);
             spel.setState(spel.getWaitState());
+            spel.setGewonnen(b);
         }
     }
 }

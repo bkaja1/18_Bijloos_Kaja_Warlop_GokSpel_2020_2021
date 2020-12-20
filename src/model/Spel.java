@@ -208,6 +208,19 @@ public class Spel implements WaitObservable, GameObservable {
         notifyWaitObservers("gewonnen");
     }
 
+    public void startNewGame() {
+        nummer++;
+        speler = null;
+        worpen = new ArrayList<>();
+        gewonnen = false;
+        gokStrategy = null;
+        notifyWaitObservers("start");
+    }
+
+    public void closeGame() {
+        notifyWaitObservers("close");
+    }
+
     public GokStrategy getGokStrategy() {
         return gokStrategy;
     }
@@ -291,13 +304,5 @@ public class Spel implements WaitObservable, GameObservable {
 
     public void setPlayState(State playState) {
         this.playState = playState;
-    }
-
-    public void startNewGame() {
-        nummer++;
-        speler = null;
-        worpen = new ArrayList<>();
-        gewonnen = false;
-        gokStrategy = null;
     }
 }

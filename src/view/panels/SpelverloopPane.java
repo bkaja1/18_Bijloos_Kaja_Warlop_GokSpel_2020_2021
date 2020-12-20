@@ -8,7 +8,6 @@ import javafx.scene.layout.GridPane;
 import model.Spel;
 
 import javax.swing.*;
-import java.util.Arrays;
 
 /**
  * @Author Blenda Kaja
@@ -22,14 +21,15 @@ public class SpelverloopPane extends GridPane {
     private Label worpen = new Label();
     private Label gewonnen = new Label();
     private Label goksaldo = new Label();
-    private Button startButton = new Button("start new game");
-    private Button closeButton = new Button("close game");
+    private Button startButton = new Button("Start new game");
+    private Button closeButton = new Button("Close game");
     public SpelverloopPane(SpelverloopController controller) {
         controller.setView(this);
 
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
+
         startButton.setDisable(true);
         closeButton.setDisable(true);
 
@@ -41,8 +41,9 @@ public class SpelverloopPane extends GridPane {
         this.add(worpen, 0, 5, 1, 1);
         this.add(gewonnen, 0, 6, 1, 1);
         this.add(goksaldo, 0, 7, 1, 1);
-        this.add(startButton, 0, 8);
-        this.add(closeButton, 0, 9);
+        this.add(startButton, 0, 8, 1, 1);
+        this.add(closeButton, 0, 9, 1 , 1);
+
         startButton.setOnAction(event -> {
             try {
                 controller.startNewGame();
@@ -50,15 +51,17 @@ public class SpelverloopPane extends GridPane {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         });
+
+        closeButton.setOnAction(event -> {
+            try {
+                controller.closeGame();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        });
     }
 
     public void display(Spel spel) {
-        nummer.setText("");
-        speler.setText("");
-        inzet.setText("");
-        gokStrategy.setText("");
-        worpen.setText("");
-        gewonnen.setText("");
         if(spel.getInzet() != 0) {
             nummer.setText("Dit is spel " + spel.getNummer() + " van de huidige sessie");
             speler.setText("De huidige speler is " + spel.getVoornaam() + " " + spel.getFamilienaam() + " –  Spelernaam: " + spel.getSpelernaam());
@@ -77,5 +80,19 @@ public class SpelverloopPane extends GridPane {
         closeButton.setDisable(false);
     }
 
+    public void startNewGame() {
+        nummer.setText("");
+        speler.setText("");
+        inzet.setText("");
+        gokStrategy.setText("");
+        worpen.setText("");
+        gewonnen.setText("");
+        goksaldo.setText("");
+        startButton.setDisable(true);
+        closeButton.setDisable(true);
+    }
 
+    public void closeGame() {
+        System.exit(0);
+    }
 }

@@ -7,7 +7,7 @@ public interface State {
         throw new IllegalArgumentException("Je kan geen nieuwe spel starten");
     }
 
-    default void closeApp() {
+    default void closeGame() {
         throw new IllegalArgumentException("Je kan geen spel sluiten");
     }
 

@@ -11,10 +11,12 @@ public class WaitState implements State {
 
     @Override
     public void startNewGame() {
+        spel.startNewGame();
         spel.setState(spel.getSpelerState());
     }
 
     @Override
-    public void closeApp() {
+    public void closeGame() {
+        spel.closeGame();
     }
 }

@@ -14,7 +14,6 @@ import javafx.stage.StageStyle;
 import model.gokstrategies.GokEnum;
 
 import javax.swing.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Author Blenda Kaja
@@ -32,7 +31,7 @@ public class GamblerView {
 	private Label goksaldo = new Label();
 	private Label inzetLabel = new Label("Wat is je inzet?");
 	private TextField inzet = new TextField();
-	private Button startButton = new Button("Start");
+	private Button startButton = new Button("Start gokspel");
 	private final ToggleGroup gokStrategyGroup = new ToggleGroup();
 	private Label gokStrategyLabel = new Label("Kies je gok strategie uit onderstaande lijst");
 	private RadioButton EvenStrategyRb = new RadioButton(GokEnum.EVENSTRATEGY.getOmschrijving());
@@ -120,6 +119,7 @@ public class GamblerView {
 		pane3.add(worp2, 0, 2, 1, 1);
 		pane3.add(worp3, 0, 3, 1, 1);
 		pane3.add(worp4, 0, 4, 1, 1);
+		pane3.add(result, 0, 5, 1, 1);
 
 		pane.setTop(pane1);
 		pane.setCenter(pane2);
@@ -136,7 +136,6 @@ public class GamblerView {
 			if(event.getCode().equals(KeyCode.ENTER)) {
 				try {
 					controller.updateSpelernaam(spelernaam.getText());
-					spelernaam.setEditable(false);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
@@ -216,6 +215,7 @@ public class GamblerView {
 
 	public void displayGoksaldo(int i) {
 		goksaldo.setText("Je goksaldo is " + i);
+		spelernaam.setEditable(false);
 		inzet.setEditable(true);
 	}
 
@@ -228,12 +228,40 @@ public class GamblerView {
 	}
 
 	public void displayResult(boolean gewonnen, int goksaldo) {
+		inzet.setEditable(false);
 		werpDobbelsteenButton.setDisable(true);
 		if(gewonnen) {
 			result.setText("GEFELICITEERD, JE HEBT GEWONNEN\nJe nieuwe goksaldo bedraagt " + goksaldo + " €");
 		} else {
 			result.setText("HELAAS, JE HEBT NIET GEWONNEN\nJe nieuwe goksaldo bedraagt " + goksaldo + " €");
 		}
-		pane3.add(result, 0, 5, 1, 1);
+	}
+
+	public void refresh() {
+		spelernaam.clear();
+		goksaldo.setText("");
+		inzet.clear();
+		worp1.setText("");
+		worp2.setText("");
+		worp3.setText("");
+		worp4.setText("");
+		result.setText("");
+		spelernaam.setEditable(true);
+		inzet.setEditable(false);
+		startButton.setDisable(true);
+		EvenStrategyRb.setDisable(true);
+		EvenStrategyLabel.setDisable(true);
+		somIs21StrategyRb.setDisable(true);
+		somIs21StrategyLabel.setDisable(true);
+		hogerDanVorigeStrategyRb.setDisable(true);
+		hogerDanVorigeStrategyLabel.setDisable(true);
+		hogerDanEenStrategyRb.setDisable(true);
+		hogerDanEenStrategyLabel.setDisable(true);
+		somIsMin6StrategyRb.setDisable(true);
+		somIsMin6StrategyLabel.setDisable(true);
+		bevestigKeuzeButton.setDisable(true);
+		bevestigKeuzeButton.setDisable(true);
+		werpDobbelsteenButton.setDisable(true);
+		EvenStrategyRb.setSelected(true);
 	}
 }

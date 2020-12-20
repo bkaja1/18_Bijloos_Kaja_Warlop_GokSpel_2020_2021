@@ -43,6 +43,9 @@ public class GamblerController implements WaitObserver, GameObserver {
 
     @Override
     public void updateWait(String wait) {
+        if(wait.equals("start")) {
+            view.refresh();
+        }
         if(wait.equals("gewonnen")) {
             view.displayResult(spel.isGewonnen(), spel.getGoksaldo());
         }
