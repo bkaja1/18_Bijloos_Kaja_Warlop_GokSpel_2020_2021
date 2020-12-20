@@ -20,7 +20,7 @@ public class AdminMainPane extends BorderPane {
         GamblerOverviewPane gamblerOverviewPane = new GamblerOverviewPane(gamblerOverviewController);
         Tab spelerTab = new Tab("Spelers",gamblerOverviewPane);
         Tab instellingTab = new Tab("Instellingen");
-        Tab statistiekTab = new Tab("Staitieken");
+        Tab statistiekTab = new Tab("Statistieken");
         tabPane.getTabs().add(spelVerloopTab);
         tabPane.getTabs().add(spelerTab);
         tabPane.getTabs().add(statistiekTab);

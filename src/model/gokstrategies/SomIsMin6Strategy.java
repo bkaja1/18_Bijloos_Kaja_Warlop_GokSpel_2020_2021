@@ -5,11 +5,19 @@ package model.gokstrategies;
  */
 
 public class SomIsMin6Strategy  implements GokStrategy{
+    private int aantal = 0;
     private int som = 0;
 
     @Override
     public boolean evalueerGok(int i) {
+        aantal++;
         som += i;
-        return som <= 6;
+
+        if(aantal == 4) {
+            return som >= 6;
+        }
+        else {
+            return true;
+        }
     }
 }
