@@ -4,7 +4,13 @@ import model.Spel;
 
 import view.panels.StatistiekPane;
 
-public class StatistiekController implements WaitObserver {
+/**
+ * @Author Niels Bijloos
+ *         Blenda Kaja
+ */
+
+
+public class StatistiekController implements WaitObserver{
     private StatistiekPane view;
     private Spel spel;
 
