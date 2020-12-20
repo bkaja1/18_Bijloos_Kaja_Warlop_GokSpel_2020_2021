@@ -1,21 +1,12 @@
 package controller;
 
 import model.Spel;
-import model.gokstrategies.GokStrategy;
 
 import view.panels.StatistiekPane;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class StatistiekController implements WaitObserver{
-
     private StatistiekPane view;
     private Spel spel;
-
-    private GamblerController gamblerController;
-
-    private HashMap<GokStrategy, ArrayList<Double>> statistieken;
 
     public StatistiekController(Spel spel) {
         this.spel = spel;

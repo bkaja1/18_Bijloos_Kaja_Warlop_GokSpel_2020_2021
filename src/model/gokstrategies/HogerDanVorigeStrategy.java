@@ -7,7 +7,7 @@ package model.gokstrategies;
 
 public class HogerDanVorigeStrategy implements GokStrategy {
     private int vorige = 0;
-    private String omschrijving = "het aantal ogen is bij elke worp hoger dan bij de vorige worp";
+    private String omschrijving = GokEnum.HOGERDANVORIGESTRATEGY.getOmschrijving();
     private int gekozen = 0;
     private int gewonnen = 0;
     private int inzet = 0;

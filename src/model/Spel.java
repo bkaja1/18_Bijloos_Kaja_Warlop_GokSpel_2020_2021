@@ -11,10 +11,7 @@ import model.database.SpelerDB;
 import model.gokstrategies.*;
 import model.states.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Spel implements WaitObservable, GameObservable {
     private ArrayList<WaitObserver> waitObservers;
@@ -39,7 +36,7 @@ public class Spel implements WaitObservable, GameObservable {
         this.spelerDB = new SpelerDB();
         this.nummer = 1;
         this.worpen = new ArrayList<>();
-        this.gokStrategies = new HashMap<>();
+        this.gokStrategies = new LinkedHashMap<>();
         gokStrategies.put(GokEnum.EVENSTRATEGY.getOmschrijving(), new EvenStrategy());
         gokStrategies.put(GokEnum.SOMIS21STRATEGY.getOmschrijving(), new SomIs21Strategy());
         gokStrategies.put(GokEnum.HOGERDANVORIGESTRATEGY.getOmschrijving(), new HogerDanVorigeStrategy());
@@ -245,7 +242,7 @@ public class Spel implements WaitObservable, GameObservable {
     }
 
     public ArrayList<GokStrategy> getGokStrategies() {
-        return new ArrayList<GokStrategy>(gokStrategies.values());
+        return new ArrayList<>(gokStrategies.values());
     }
 
     public State getState() {

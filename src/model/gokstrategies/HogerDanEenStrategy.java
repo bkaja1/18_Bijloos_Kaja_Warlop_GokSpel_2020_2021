@@ -5,7 +5,7 @@ package model.gokstrategies;
  */
 
 public class HogerDanEenStrategy implements GokStrategy {
-    private String omschrijving = "de som van de ogen van alle worpen is 21";
+    private String omschrijving = GokEnum.HOGERDANEENSTRATEGY.getOmschrijving();
     private int gekozen = 0;
     private int gewonnen = 0;
     private int inzet = 0;

@@ -9,7 +9,7 @@ package model.gokstrategies;
 public class SomIs21Strategy implements GokStrategy {
     private int aantal = 0;
     private int som = 0;
-    private String omschrijving = "de som van de ogen van alle worpen is 21";
+    private String omschrijving = GokEnum.SOMIS21STRATEGY.getOmschrijving();
     private int gekozen = 0;
     private int gewonnen = 0;
     private int inzet = 0;

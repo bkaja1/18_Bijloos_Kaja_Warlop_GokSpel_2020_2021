@@ -7,7 +7,7 @@ package model.gokstrategies;
 public class SomIsMin6Strategy  implements GokStrategy{
     private int aantal = 0;
     private int som = 0;
-    private String omschrijving;
+    private String omschrijving = GokEnum.SOMISMINSTENS6STRATEGY.getOmschrijving();
     private int gekozen = 0;
     private int gewonnen = 0;
     private int inzet = 0;
