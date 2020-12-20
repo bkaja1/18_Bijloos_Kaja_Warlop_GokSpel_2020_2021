@@ -5,6 +5,7 @@ import view.panels.SpelverloopPane;
 
 /**
  * @Author Blenda Kaja
+ *         Sébastien Warlop
  */
 
 public class SpelverloopController implements WaitObserver, GameObserver {
@@ -31,5 +32,9 @@ public class SpelverloopController implements WaitObserver, GameObserver {
     @Override
     public void updateGame(Object object) {
         view.display(spel);
+    }
+
+    public void startNewGame(){
+        spel.getState().startNewGame();
     }
 }

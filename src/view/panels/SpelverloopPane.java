@@ -2,10 +2,12 @@ package view.panels;
 
 import controller.SpelverloopController;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import model.Spel;
 
+import javax.swing.*;
 import java.util.Arrays;
 
 /**
@@ -20,12 +22,16 @@ public class SpelverloopPane extends GridPane {
     private Label worpen = new Label();
     private Label gewonnen = new Label();
     private Label goksaldo = new Label();
+    private Button startButton = new Button("start new game");
+    private Button closeButton = new Button("close game");
     public SpelverloopPane(SpelverloopController controller) {
         controller.setView(this);
 
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
+        startButton.setDisable(true);
+        closeButton.setDisable(true);
 
         this.add(new Label("Spelerverloop:"), 0, 0, 1, 1);
         this.add(nummer, 0, 1, 1, 1);
@@ -35,6 +41,15 @@ public class SpelverloopPane extends GridPane {
         this.add(worpen, 0, 5, 1, 1);
         this.add(gewonnen, 0, 6, 1, 1);
         this.add(goksaldo, 0, 7, 1, 1);
+        this.add(startButton, 0, 8);
+        this.add(closeButton, 0, 9);
+        startButton.setOnAction(event -> {
+            try {
+                controller.startNewGame();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        });
     }
 
     public void display(Spel spel) {
@@ -58,5 +73,9 @@ public class SpelverloopPane extends GridPane {
         worpen.setText("De worpen van " + spel.getSpelernaam() + ":" + spel.getWorpenToString());
         gewonnen.setText(spel.getSpelernaam() + " heeft " + (spel.isGewonnen()?"":"NIET ") + "gewonnen");
         goksaldo.setText("Nieuwe goksaldo: " + spel.getGoksaldo() + " €");
+        startButton.setDisable(false);
+        closeButton.setDisable(false);
     }
+
+
 }
