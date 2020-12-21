@@ -30,9 +30,6 @@ public class SpelverloopPane extends GridPane {
         this.setVgap(5);
         this.setHgap(5);
 
-        startButton.setDisable(true);
-        closeButton.setDisable(true);
-
         this.add(new Label("Spelerverloop:"), 0, 0, 1, 1);
         this.add(nummer, 0, 1, 1, 1);
         this.add(speler, 0, 2, 1, 1);

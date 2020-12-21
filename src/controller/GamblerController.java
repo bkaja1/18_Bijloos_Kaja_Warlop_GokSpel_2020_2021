@@ -7,14 +7,17 @@ import view.GamblerView;
  * @Author Blenda Kaja
  */
 
-public class GamblerController implements WaitObserver, GameObserver {
+public class GamblerController implements Observer {
     private GamblerView view;
     private Spel spel;
 
     public GamblerController(Spel spel) {
         this.spel = spel;
-        spel.addWaitObserver(this);
-        spel.addGameObserver(this);
+        spel.addObserver(this);
+    }
+
+    public void setView(GamblerView view) {
+        this.view = view;
     }
 
     public void updateSpelernaam(String spelernaam) {
@@ -37,31 +40,26 @@ public class GamblerController implements WaitObserver, GameObserver {
         spel.getState().throwDice(i);
     }
 
-    public void setView(GamblerView view) {
-        this.view = view;
-    }
-
     @Override
-    public void updateWait(String wait) {
-        if(wait.equals("start")) {
-            view.refresh();
-        }
-        if(wait.equals("gewonnen")) {
-            view.displayResult(spel.isGewonnen(), spel.getGoksaldo());
-        }
-    }
-
-    @Override
-    public void updateGame(Object object) {
+    public void update(String s) {
         if(spel.getState() == spel.getSpelerState()) {
-            view.displayGoksaldo(spel.getGoksaldo());
+            view.refresh();
+            view.setEditableSpelernaam(true);
         }
         if(spel.getState() == spel.getInzetState()) {
+            view.displayGoksaldo(spel.getGoksaldo());
+            view.setEditableInzet(true);
+        }
+        if(spel.getState() == spel.getChooseState()) {
             view.setEditableInzet(false);
             view.setDisableStartButton(false);
         }
         if(spel.getState() == spel.getPlayState()) {
+            view.setDisableStartButton(true);
             view.setEditableInzet(spel.getWorpen().size() == 2);
+        }
+        if(spel.getState() == spel.getWaitState()) {
+            view.displayResult(spel.isGewonnen(), spel.getGoksaldo());
         }
     }
 }

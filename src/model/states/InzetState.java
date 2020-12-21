@@ -11,7 +11,7 @@ public class InzetState implements State {
 
     @Override
     public void enterInzet(int inzet) {
-        spel.setInzet(inzet);
         spel.setState(spel.getChooseState());
+        spel.setInzet(inzet);
     }
 }

@@ -6,6 +6,7 @@ import model.Speler;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -19,7 +20,7 @@ public class SpelerExcelLoadSaveStrategy implements LoadSaveStrategy {
     @Override
     public Map load(File file) {
         excelPlugin = new ExcelPlugin();
-        Map<Object, Object> returnMap = new HashMap<>();
+        Map<Object, Object> returnMap = new LinkedHashMap<>();
         try {
             for(ArrayList<String> tokens : excelPlugin.read(file)) {
                 Speler element = new Speler(tokens.get(0), tokens.get(1), tokens.get(2), Integer.parseInt(tokens.get(3)));

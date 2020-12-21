@@ -26,14 +26,11 @@ public class GamblerView {
 	private GridPane pane1 = new GridPane();
 	private GridPane pane2 = new GridPane();
 	private GridPane pane3 = new GridPane();
-	private Label spelernaamLabel = new Label("Wat is je spelernaam?");
 	private TextField spelernaam = new TextField();
 	private Label goksaldo = new Label();
-	private Label inzetLabel = new Label("Wat is je inzet?");
 	private TextField inzet = new TextField();
-	private Button startButton = new Button("Start gokspel");
+	private Button startGokspelButton = new Button("Start gokspel");
 	private final ToggleGroup gokStrategyGroup = new ToggleGroup();
-	private Label gokStrategyLabel = new Label("Kies je gok strategie uit onderstaande lijst");
 	private RadioButton EvenStrategyRb = new RadioButton(GokEnum.EVENSTRATEGY.getOmschrijving());
 	private Label EvenStrategyLabel = new Label("mogelijke winst is 4x je inzet");
 	private RadioButton somIs21StrategyRb = new RadioButton(GokEnum.SOMIS21STRATEGY.getOmschrijving());
@@ -70,21 +67,6 @@ public class GamblerView {
 		pane3.setVgap(5);
 		pane3.setHgap(5);
 
-		inzet.setEditable(false);
-		startButton.setDisable(true);
-		EvenStrategyRb.setDisable(true);
-		EvenStrategyLabel.setDisable(true);
-		somIs21StrategyRb.setDisable(true);
-		somIs21StrategyLabel.setDisable(true);
-		hogerDanVorigeStrategyRb.setDisable(true);
-		hogerDanVorigeStrategyLabel.setDisable(true);
-		hogerDanEenStrategyRb.setDisable(true);
-		hogerDanEenStrategyLabel.setDisable(true);
-		somIsMin6StrategyRb.setDisable(true);
-		somIsMin6StrategyLabel.setDisable(true);
-		bevestigKeuzeButton.setDisable(true);
-		bevestigKeuzeButton.setDisable(true);
-		werpDobbelsteenButton.setDisable(true);
 		EvenStrategyRb.setToggleGroup(gokStrategyGroup);
 		EvenStrategyRb.setSelected(true);
 		somIs21StrategyRb.setToggleGroup(gokStrategyGroup);
@@ -93,15 +75,15 @@ public class GamblerView {
 		somIsMin6StrategyRb.setToggleGroup(gokStrategyGroup);
 		result.setTextFill(Color.RED);
 
-		pane1.add(spelernaamLabel, 0, 0, 1, 1);
+		pane1.add(new Label("Wat is je spelernaam?"), 0, 0, 1, 1);
 		pane1.add(spelernaam, 1, 0, 1, 1);
 		pane1.add(goksaldo, 2, 0, 1, 1);
 
-		pane1.add(inzetLabel, 0, 1, 1, 1);
+		pane1.add(new Label("Wat is je inzet?"), 0, 1, 1, 1);
 		pane1.add(inzet, 1, 1, 1, 1);
-		pane1.add(startButton, 1, 2, 1, 1);
+		pane1.add(startGokspelButton, 0, 2, 1, 1);
 
-		pane2.add(gokStrategyLabel, 0, 0, 1, 1);
+		pane2.add(new Label("Kies je gok strategie uit onderstaande lijst"), 0, 0, 1, 1);
 		pane2.add(EvenStrategyRb, 0, 1, 1, 1);
 		pane2.add(EvenStrategyLabel, 1, 1, 1, 1);
 		pane2.add(somIs21StrategyRb, 0, 2, 1, 1);
@@ -132,6 +114,8 @@ public class GamblerView {
 		stage.sizeToScene();			
 		stage.show();
 
+		refresh();
+
 		spelernaam.setOnKeyPressed(event -> {
 			if(event.getCode().equals(KeyCode.ENTER)) {
 				try {
@@ -153,9 +137,9 @@ public class GamblerView {
 			}
 		});
 
-		startButton.setOnAction(event -> {
+		startGokspelButton.setOnAction(event -> {
 			try {
-				startButton.setDisable(true);
+				startGokspelButton.setDisable(true);
 				bevestigKeuzeButton.setDisable(false);
 				EvenStrategyRb.setDisable(false);
 				EvenStrategyLabel.setDisable(false);
@@ -213,30 +197,6 @@ public class GamblerView {
 		});
 	}
 
-	public void displayGoksaldo(int i) {
-		goksaldo.setText("Je goksaldo is " + i);
-		spelernaam.setEditable(false);
-		inzet.setEditable(true);
-	}
-
-	public void setEditableInzet(boolean b) {
-		inzet.setEditable(b);
-	}
-
-	public void setDisableStartButton(boolean b) {
-		startButton.setDisable(b);
-	}
-
-	public void displayResult(boolean gewonnen, int goksaldo) {
-		inzet.setEditable(false);
-		werpDobbelsteenButton.setDisable(true);
-		if(gewonnen) {
-			result.setText("GEFELICITEERD, JE HEBT GEWONNEN\nJe nieuwe goksaldo bedraagt " + goksaldo + " €");
-		} else {
-			result.setText("HELAAS, JE HEBT NIET GEWONNEN\nJe nieuwe goksaldo bedraagt " + goksaldo + " €");
-		}
-	}
-
 	public void refresh() {
 		spelernaam.clear();
 		goksaldo.setText("");
@@ -246,9 +206,9 @@ public class GamblerView {
 		worp3.setText("");
 		worp4.setText("");
 		result.setText("");
-		spelernaam.setEditable(true);
+		spelernaam.setEditable(false);
 		inzet.setEditable(false);
-		startButton.setDisable(true);
+		startGokspelButton.setDisable(true);
 		EvenStrategyRb.setDisable(true);
 		EvenStrategyLabel.setDisable(true);
 		somIs21StrategyRb.setDisable(true);
@@ -263,5 +223,33 @@ public class GamblerView {
 		bevestigKeuzeButton.setDisable(true);
 		werpDobbelsteenButton.setDisable(true);
 		EvenStrategyRb.setSelected(true);
+	}
+
+	public void setEditableSpelernaam(boolean b) {
+		spelernaam.setEditable(b);
+	}
+
+	public void displayGoksaldo(int i) {
+		goksaldo.setText("Je goksaldo is " + i);
+		spelernaam.setEditable(false);
+		inzet.setEditable(true);
+	}
+
+	public void setEditableInzet(boolean b) {
+		inzet.setEditable(b);
+	}
+
+	public void setDisableStartButton(boolean b) {
+		startGokspelButton.setDisable(b);
+	}
+
+	public void displayResult(boolean gewonnen, int goksaldo) {
+		inzet.setEditable(false);
+		werpDobbelsteenButton.setDisable(true);
+		if(gewonnen) {
+			result.setText("GEFELICITEERD, JE HEBT GEWONNEN\nJe nieuw goksaldo bedraagt " + goksaldo + " €");
+		} else {
+			result.setText("HELAAS, JE HEBT NIET GEWONNEN\nJe nieuw goksaldo bedraagt " + goksaldo + " €");
+		}
 	}
 }

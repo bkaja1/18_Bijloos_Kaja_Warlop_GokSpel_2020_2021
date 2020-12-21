@@ -12,7 +12,7 @@ public class ChooseState implements State {
 
     @Override
     public void confirmChoice(GokStrategy gokStrategy) {
-        spel.setGokStrategy(gokStrategy);
         spel.setState(spel.getPlayState());
+        spel.setGokStrategy(gokStrategy);
     }
 }

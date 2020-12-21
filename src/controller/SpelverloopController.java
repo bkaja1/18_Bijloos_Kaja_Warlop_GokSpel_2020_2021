@@ -8,14 +8,13 @@ import view.panels.SpelverloopPane;
  *         Sébastien Warlop
  */
 
-public class SpelverloopController implements WaitObserver, GameObserver {
+public class SpelverloopController implements Observer {
     private SpelverloopPane view;
     private Spel spel;
 
     public SpelverloopController(Spel spel) {
         this.spel = spel;
-        spel.addWaitObserver(this);
-        spel.addGameObserver(this);
+        spel.addObserver(this);
     }
 
     public void setView(SpelverloopPane view) {
@@ -31,20 +30,18 @@ public class SpelverloopController implements WaitObserver, GameObserver {
     }
 
     @Override
-    public void updateWait(String wait) {
-        if(wait.equals("start")) {
+    public void update(String s) {
+        if(spel.getState() == spel.getSpelerState()) {
             view.startNewGame();
         }
-        if(wait.equals("gewonnen")) {
+        if(spel.getState() == spel.getChooseState() || spel.getState() == spel.getPlayState()) {
+            view.display(spel);
+        }
+        if(spel.getState() == spel.getWaitState()) {
             view.displayGewonnen(spel);
         }
-        if(wait.equals("close")) {
+        if(spel.getState() == spel.getClosedState()) {
             view.closeGame();
         }
-    }
-
-    @Override
-    public void updateGame(Object object) {
-        view.display(spel);
     }
 }

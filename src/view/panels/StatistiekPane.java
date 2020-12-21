@@ -30,10 +30,9 @@ public class StatistiekPane extends GridPane {
         this.setVgap(5);
         this.setHgap(5);
 
-        this.add(new Label("Spelers:"), 0, 0, 1, 1);
+        this.add(new Label("Statistieken:"), 0, 0, 1, 1);
 
         TableColumn<GokStrategy, String> colOmschrijving = new TableColumn<>("Omschrijving");
-        //colOmschrijving.setMinWidth();
         colOmschrijving.setCellValueFactory(new PropertyValueFactory<>("omschrijving"));
 
         TableColumn<GokStrategy, Integer> colGekozen = new TableColumn<>("Gekozen");

@@ -1,10 +1,7 @@
 package model.database;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @Author Niels Bijloos
@@ -12,7 +9,7 @@ import java.util.Scanner;
 
 public abstract class TekstLoadSaveTemplate<K, V> {
     public final Map<K, V> load(File file) {
-        Map<K, V> returnMap = new HashMap<K, V>();
+        Map<K, V> returnMap = new LinkedHashMap<K, V>();
         try (Scanner scanner = new Scanner(file)) {
             while(scanner.hasNextLine()) {
                 String line = scanner.nextLine();

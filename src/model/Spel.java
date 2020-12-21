@@ -1,9 +1,7 @@
 package model;
 
-import controller.GameObservable;
-import controller.GameObserver;
-import controller.WaitObservable;
-import controller.WaitObserver;
+import controller.Observable;
+import controller.Observer;
 import model.database.LoadSaveEnum;
 import model.database.LoadSaveFactory;
 import model.database.LoadSaveStrategy;
@@ -11,11 +9,13 @@ import model.database.SpelerDB;
 import model.gokstrategies.*;
 import model.states.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-public class Spel implements WaitObservable, GameObservable {
-    private ArrayList<WaitObserver> waitObservers;
-    private ArrayList<GameObserver> gameObservers;
+public class Spel implements Observable {
+    private ArrayList<Observer> observers;
     private SpelerDB spelerDB;
     private Speler speler;
     private int nummer;
@@ -28,13 +28,13 @@ public class Spel implements WaitObservable, GameObservable {
     private State inzetState;
     private State chooseState;
     private State playState;
+    private State closedState;
     private State state;
 
     public Spel() {
-        this.waitObservers = new ArrayList<>();
-        this.gameObservers = new ArrayList<>();
+        this.observers = new ArrayList<>();
         this.spelerDB = new SpelerDB();
-        this.nummer = 1;
+        this.nummer = 0;
         this.worpen = new ArrayList<>();
         this.gokStrategies = new LinkedHashMap<>();
         gokStrategies.put(GokEnum.EVENSTRATEGY.getOmschrijving(), new EvenStrategy());
@@ -48,40 +48,24 @@ public class Spel implements WaitObservable, GameObservable {
         setInzetState(new InzetState(this));
         setChooseState(new ChooseState(this));
         setPlayState(new PlayState(this));
-        setState(spelerState);
+        setClosedState(new ClosedState(this));
+        setState(waitState);
     }
 
     @Override
-    public void addWaitObserver(WaitObserver o) {
-        waitObservers.add(o);
+    public void addObserver(Observer o) {
+        observers.add(o);
     }
 
     @Override
-    public void deleteWaitObserver(WaitObserver o) {
-        waitObservers.remove(o);
+    public void deleteObserver(Observer o) {
+        observers.remove(o);
     }
 
     @Override
-    public void notifyWaitObservers(String wait) {
-        for(WaitObserver waitObserver : waitObservers) {
-            waitObserver.updateWait(wait);
-        }
-    }
-
-    @Override
-    public void addGameObserver(GameObserver o) {
-        gameObservers.add(o);
-    }
-
-    @Override
-    public void deleteGameObserver(GameObserver o) {
-        gameObservers.remove(o);
-    }
-
-    @Override
-    public void notifyGameObservers(Object object) {
-        for(GameObserver gameObserver : gameObservers) {
-            gameObserver.updateGame(object);
+    public void notifyObservers(String s) {
+        for(Observer observer : observers) {
+            observer.update(s);
         }
     }
 
@@ -111,7 +95,7 @@ public class Spel implements WaitObservable, GameObservable {
 
     public void setSpeler(String spelernaam) {
         this.speler = getSpeler(spelernaam);
-        notifyGameObservers(this);
+        notifyObservers("spel");
     }
 
     public String getFamilienaam() {
@@ -149,7 +133,7 @@ public class Spel implements WaitObservable, GameObservable {
         }
         speler.setInzet(inzet);
 
-        notifyGameObservers(this);
+        notifyObservers("spel");
     }
 
     public List<String> getLoadSaveLijst(){
@@ -182,7 +166,7 @@ public class Spel implements WaitObservable, GameObservable {
 
     public void addWorp(int i) {
         worpen.add(i);
-        notifyGameObservers(this);
+        notifyObservers("spel");
     }
 
     public boolean isGewonnen() {
@@ -205,7 +189,7 @@ public class Spel implements WaitObservable, GameObservable {
         if(gewonnen) {
             gokStrategies.get(gokStrategy.getOmschrijving()).addBedrag(speler.getInzet()*getWinstfactor());
         }
-        notifyWaitObservers("gewonnen");
+        notifyObservers("gewonnen");
     }
 
     public void startNewGame() {
@@ -214,11 +198,11 @@ public class Spel implements WaitObservable, GameObservable {
         worpen = new ArrayList<>();
         gewonnen = false;
         gokStrategy = null;
-        notifyWaitObservers("start");
+        notifyObservers("start");
     }
 
     public void closeGame() {
-        notifyWaitObservers("close");
+        notifyObservers("close");
     }
 
     public GokStrategy getGokStrategy() {
@@ -227,7 +211,7 @@ public class Spel implements WaitObservable, GameObservable {
 
     public void setGokStrategy(GokStrategy gokStrategy) {
         this.gokStrategy = gokStrategy;
-        notifyGameObservers(this);
+        notifyObservers("spel");
     }
 
     public String getGokOmschrijving() {
@@ -304,5 +288,13 @@ public class Spel implements WaitObservable, GameObservable {
 
     public void setPlayState(State playState) {
         this.playState = playState;
+    }
+
+    public State getClosedState() {
+        return closedState;
+    }
+
+    public void setClosedState(State closedState) {
+        this.closedState = closedState;
     }
 }

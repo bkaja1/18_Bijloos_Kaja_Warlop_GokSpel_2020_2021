@@ -2,6 +2,7 @@ package view;
 
 
 import controller.GamblerOverviewController;
+import controller.InstellingenController;
 import controller.SpelverloopController;
 import controller.StatistiekController;
 import javafx.scene.control.Tab;
@@ -9,6 +10,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import model.Spel;
 import view.panels.GamblerOverviewPane;
+import view.panels.InstellingenPane;
 import view.panels.SpelverloopPane;
 import view.panels.StatistiekPane;
 
@@ -21,7 +23,9 @@ public class AdminMainPane extends BorderPane {
         GamblerOverviewController gamblerOverviewController = new GamblerOverviewController(spel);
         GamblerOverviewPane gamblerOverviewPane = new GamblerOverviewPane(gamblerOverviewController);
         Tab spelerTab = new Tab("Spelers",gamblerOverviewPane);
-        Tab instellingTab = new Tab("Instellingen");
+        InstellingenController instellingenController = new InstellingenController(spel);
+        InstellingenPane instellingenPane = new InstellingenPane(instellingenController);
+        Tab instellingTab = new Tab("Instellingen", instellingenPane);
         StatistiekController statistiekController = new StatistiekController(spel);
         StatistiekPane statistiekPane = new StatistiekPane(statistiekController);
         Tab statistiekTab = new Tab("Statistieken", statistiekPane);
