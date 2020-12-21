@@ -4,13 +4,19 @@ import model.Spel;
 
 import view.panels.StatistiekPane;
 
-public class StatistiekController implements Observer {
+/**
+ * @Author Niels Bijloos
+ *         Blenda Kaja
+ */
+
+
+public class StatistiekController implements WaitObserver{
     private StatistiekPane view;
     private Spel spel;
 
     public StatistiekController(Spel spel) {
         this.spel = spel;
-        spel.addObserver(this);
+        spel.addWaitObserver(this);
 
     }
 
@@ -20,8 +26,8 @@ public class StatistiekController implements Observer {
     }
 
     @Override
-    public void update(String s) {
-        if(spel.getState() == spel.getWaitState()) {
+    public void updateWait(String wait) {
+        if(wait.equals("gewonnen")) {
             view.refresh(spel);
         }
     }
