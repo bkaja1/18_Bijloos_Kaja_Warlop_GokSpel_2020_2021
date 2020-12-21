@@ -1,5 +1,5 @@
 package controller;
 
 public interface Observer {
-    void update(String s);
+    void update();
 }

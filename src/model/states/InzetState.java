@@ -13,5 +13,6 @@ public class InzetState implements State {
     public void enterInzet(int inzet) {
         spel.setState(spel.getChooseState());
         spel.setInzet(inzet);
+        spel.notifyObservers();
     }
 }

@@ -10,13 +10,13 @@ import view.panels.StatistiekPane;
  */
 
 
-public class StatistiekController implements WaitObserver{
+public class StatistiekController implements Observer{
     private StatistiekPane view;
     private Spel spel;
 
     public StatistiekController(Spel spel) {
         this.spel = spel;
-        spel.addWaitObserver(this);
+        spel.addObserver(this);
 
     }
 
@@ -26,8 +26,8 @@ public class StatistiekController implements WaitObserver{
     }
 
     @Override
-    public void updateWait(String wait) {
-        if(wait.equals("gewonnen")) {
+    public void update() {
+        if(spel.getState() == spel.getWaitState()) {
             view.refresh(spel);
         }
     }

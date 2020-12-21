@@ -18,11 +18,11 @@ public class GamblerOverviewController implements Observer {
 
     public void setView(GamblerOverviewPane view) {
         this.view = view;
-        view.refresh(spel);
+        update();
     }
 
     @Override
-    public void update(String s) {
+    public void update() {
         view.refresh(spel);
     }
 }

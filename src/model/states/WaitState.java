@@ -13,11 +13,12 @@ public class WaitState implements State {
     public void startNewGame() {
         spel.setState(spel.getSpelerState());
         spel.startNewGame();
+        spel.notifyObservers();
     }
 
     @Override
     public void closeGame() {
         spel.setState(spel.getClosedState());
-        spel.closeGame();
+        spel.notifyObservers();
     }
 }

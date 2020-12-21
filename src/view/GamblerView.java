@@ -206,7 +206,7 @@ public class GamblerView {
 		worp3.setText("");
 		worp4.setText("");
 		result.setText("");
-		spelernaam.setEditable(false);
+		spelernaam.setEditable(true);
 		inzet.setEditable(false);
 		startGokspelButton.setDisable(true);
 		EvenStrategyRb.setDisable(true);

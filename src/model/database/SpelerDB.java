@@ -3,10 +3,7 @@ package model.database;
 import model.Speler;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author Blenda Kaja
@@ -15,9 +12,12 @@ import java.util.Map;
 public class SpelerDB {
     private File file;
     private LoadSaveStrategy loadSaveStrategy;
-    private Map<String, Speler> spelers;
+    private Map<String, Speler> spelers = new LinkedHashMap<>();
 
     public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy) {
+        if(loadSaveStrategy == null) {
+            throw new IllegalArgumentException("LoadSaveStrategy mag niet leeg zijn");
+        }
         this.loadSaveStrategy = loadSaveStrategy;
         if(loadSaveStrategy instanceof SpelerTekstLoadSaveStrategy) {
             this.file = new File("src/bestanden/speler.txt");

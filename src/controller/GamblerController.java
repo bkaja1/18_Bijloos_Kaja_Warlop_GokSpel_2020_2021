@@ -41,10 +41,9 @@ public class GamblerController implements Observer {
     }
 
     @Override
-    public void update(String s) {
+    public void update() {
         if(spel.getState() == spel.getSpelerState()) {
             view.refresh();
-            view.setEditableSpelernaam(true);
         }
         if(spel.getState() == spel.getInzetState()) {
             view.displayGoksaldo(spel.getGoksaldo());

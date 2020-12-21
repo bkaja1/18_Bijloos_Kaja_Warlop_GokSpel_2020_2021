@@ -11,7 +11,8 @@ public class SpelerState implements State {
 
     @Override
     public void enterSpelernaam(String spelernaam) {
-        spel.setState(spel.getInzetState());
         spel.setSpeler(spelernaam);
+        spel.setState(spel.getInzetState());
+        spel.notifyObservers();
     }
 }

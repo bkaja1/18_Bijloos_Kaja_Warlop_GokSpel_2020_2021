@@ -30,7 +30,7 @@ public class SpelverloopController implements Observer {
     }
 
     @Override
-    public void update(String s) {
+    public void update() {
         if(spel.getState() == spel.getSpelerState()) {
             view.startNewGame();
         }

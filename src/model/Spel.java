@@ -9,10 +9,8 @@ import model.database.SpelerDB;
 import model.gokstrategies.*;
 import model.states.*;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 public class Spel implements Observable {
     private ArrayList<Observer> observers;
@@ -30,11 +28,12 @@ public class Spel implements Observable {
     private State playState;
     private State closedState;
     private State state;
+    private Properties properties;
 
     public Spel() {
         this.observers = new ArrayList<>();
         this.spelerDB = new SpelerDB();
-        this.nummer = 0;
+        this.nummer = 1;
         this.worpen = new ArrayList<>();
         this.gokStrategies = new LinkedHashMap<>();
         gokStrategies.put(GokEnum.EVENSTRATEGY.getOmschrijving(), new EvenStrategy());
@@ -42,14 +41,17 @@ public class Spel implements Observable {
         gokStrategies.put(GokEnum.HOGERDANVORIGESTRATEGY.getOmschrijving(), new HogerDanVorigeStrategy());
         gokStrategies.put(GokEnum.HOGERDANEENSTRATEGY.getOmschrijving(), new HogerDanEenStrategy());
         gokStrategies.put(GokEnum.SOMISMINSTENS6STRATEGY.getOmschrijving(), new SomIsMin6Strategy());
-        setLoadSaveStrategy(createLoadSaveStrategy(LoadSaveEnum.SPELERTEKST.toString()));
         setWaitState(new WaitState(this));
         setSpelerState(new SpelerState(this));
         setInzetState(new InzetState(this));
         setChooseState(new ChooseState(this));
         setPlayState(new PlayState(this));
         setClosedState(new ClosedState(this));
-        setState(waitState);
+        setState(spelerState);
+        properties = new Properties();
+        if(getProperty("loadSave") != null) {
+            setLoadSaveStrategy(createLoadSaveStrategy(getProperty("loadSave")));
+        }
     }
 
     @Override
@@ -63,14 +65,10 @@ public class Spel implements Observable {
     }
 
     @Override
-    public void notifyObservers(String s) {
+    public void notifyObservers() {
         for(Observer observer : observers) {
-            observer.update(s);
+            observer.update();
         }
-    }
-
-    public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy) {
-        spelerDB.setLoadSaveStrategy(loadSaveStrategy);
     }
 
     public Map<String, Speler> getSpelersMap() {
@@ -94,8 +92,10 @@ public class Spel implements Observable {
     }
 
     public void setSpeler(String spelernaam) {
+        if(getSpelersList().size() == 0) {
+            throw new IllegalArgumentException("Kies formaat in de instellingen tab");
+        }
         this.speler = getSpeler(spelernaam);
-        notifyObservers("spel");
     }
 
     public String getFamilienaam() {
@@ -132,20 +132,6 @@ public class Spel implements Observable {
             }
         }
         speler.setInzet(inzet);
-
-        notifyObservers("spel");
-    }
-
-    public List<String> getLoadSaveLijst(){
-        List<String> loadSaveLijst = new ArrayList<>();
-        for(LoadSaveEnum loadSave: LoadSaveEnum.values()){
-            loadSaveLijst.add(loadSave.toString());
-        }
-        return loadSaveLijst;
-    }
-
-    public LoadSaveStrategy createLoadSaveStrategy(String type) {
-        return LoadSaveFactory.getInstance().createLoadSaveStrategy(type);
     }
 
     public int getNummer() {
@@ -166,7 +152,7 @@ public class Spel implements Observable {
 
     public void addWorp(int i) {
         worpen.add(i);
-        notifyObservers("spel");
+        notifyObservers();
     }
 
     public boolean isGewonnen() {
@@ -189,7 +175,6 @@ public class Spel implements Observable {
         if(gewonnen) {
             gokStrategies.get(gokStrategy.getOmschrijving()).addBedrag(speler.getInzet()*getWinstfactor());
         }
-        notifyObservers("gewonnen");
     }
 
     public void startNewGame() {
@@ -198,11 +183,7 @@ public class Spel implements Observable {
         worpen = new ArrayList<>();
         gewonnen = false;
         gokStrategy = null;
-        notifyObservers("start");
-    }
-
-    public void closeGame() {
-        notifyObservers("close");
+        setLoadSaveStrategy(createLoadSaveStrategy(getProperty("loadSave")));
     }
 
     public GokStrategy getGokStrategy() {
@@ -211,7 +192,6 @@ public class Spel implements Observable {
 
     public void setGokStrategy(GokStrategy gokStrategy) {
         this.gokStrategy = gokStrategy;
-        notifyObservers("spel");
     }
 
     public String getGokOmschrijving() {
@@ -296,5 +276,48 @@ public class Spel implements Observable {
 
     public void setClosedState(State closedState) {
         this.closedState = closedState;
+    }
+
+    public String getProperty(String key) {
+        try {
+            InputStream is = new FileInputStream("src/bestanden/settings.properties");
+            properties.load(is);
+            is.close();
+        } catch (FileNotFoundException e) {
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Object type = properties.getProperty(key);
+        return (String) type;
+    }
+
+    public void setProperty(String key, String value) {
+        try{
+            OutputStream os = new FileOutputStream("src/bestanden/settings.properties");
+            properties.setProperty(key, value);
+            properties.store(os, "");
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        setLoadSaveStrategy(createLoadSaveStrategy(value));
+        notifyObservers();
+    }
+
+    public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy) {
+        spelerDB.setLoadSaveStrategy(loadSaveStrategy);
+    }
+
+    public List<String> getLoadSaveLijst(){
+        List<String> loadSaveLijst = new ArrayList<>();
+        for(LoadSaveEnum loadSave: LoadSaveEnum.values()){
+            loadSaveLijst.add(loadSave.toString());
+        }
+        return loadSaveLijst;
+    }
+
+    public LoadSaveStrategy createLoadSaveStrategy(String type) {
+        return LoadSaveFactory.getInstance().createLoadSaveStrategy(type);
     }
 }
