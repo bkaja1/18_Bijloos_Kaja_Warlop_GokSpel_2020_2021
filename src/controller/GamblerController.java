@@ -18,6 +18,7 @@ public class GamblerController implements Observer {
 
     public void setView(GamblerView view) {
         this.view = view;
+        this.view.displayGokStrategies(spel);
     }
 
     public void updateSpelernaam(String spelernaam) {
@@ -44,6 +45,7 @@ public class GamblerController implements Observer {
     public void update() {
         if(spel.getState() == spel.getSpelerState()) {
             view.refresh();
+            view.displayGokStrategies(spel);
         }
         if(spel.getState() == spel.getInzetState()) {
             view.displayGoksaldo(spel.getGoksaldo());

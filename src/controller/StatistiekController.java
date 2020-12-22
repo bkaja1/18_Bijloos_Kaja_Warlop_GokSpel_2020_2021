@@ -17,7 +17,6 @@ public class StatistiekController implements Observer{
     public StatistiekController(Spel spel) {
         this.spel = spel;
         spel.addObserver(this);
-
     }
 
     public void setView(StatistiekPane view) {

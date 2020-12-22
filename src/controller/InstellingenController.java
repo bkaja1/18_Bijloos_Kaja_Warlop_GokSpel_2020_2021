@@ -17,14 +17,16 @@ public class InstellingenController implements Observer {
 
     public void setView(InstellingenPane view) {
         this.view = view;
+        view.setSelectedLoadSave(spel.getProperty("loadSave"));
+        view.setSelectedGokStrategies(spel.getSelectedGokStrategies());
     }
 
-    public List<String> getLoadSaveLijst() {
-        return spel.getLoadSaveLijst();
+    public void setLoadSaveProperty(String value) {
+        spel.setLoadSaveProperty(value);
     }
 
-    public void setProperty(String key, String value) {
-        spel.setProperty(key, value);
+    public void setGokStrategiesProperty(String value) {
+        spel.setGokStrategiesProperty(value);
     }
 
     @Override
