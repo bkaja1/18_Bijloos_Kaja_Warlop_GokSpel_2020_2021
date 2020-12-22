@@ -63,8 +63,8 @@ public class InstellingenPane extends GridPane {
         this.add(somIsMin6StrategyCb, 0, 9, 1, 1);
         this.add(somIsMin6StrategyTextField, 1, 9, 1, 1);
         this.add(saveButton, 0, 10, 1, 1);
-        this.add(new Label("Als je geen formaat en/of gokstrategieën selecteert en/of geen geldige"), 0, 11, 1, 1);
-        this.add(new Label("winstfactor invoert worden deze instellingen niet opgeslagen!"), 0,12, 1, 1);
+        this.add(new Label("Als je geen formaat/gokstrategieën/geldige winstfactor"), 0, 11, 1, 1);
+        this.add(new Label("invoert worden deze instellingen niet opgeslagen!"), 0,12, 1, 1);
 
         evenStrategyCb.setOnAction(event -> {
             if(!evenStrategyCb.isSelected()) {
