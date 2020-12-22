@@ -6,6 +6,8 @@ package model.gokstrategies;
  */
 
 public interface GokStrategy {
+    int getWinstfactor();
+    void setWinstfactor(int i);
     boolean evalueerGok(int i);
     void addGekozen();
     void addGewonnen();

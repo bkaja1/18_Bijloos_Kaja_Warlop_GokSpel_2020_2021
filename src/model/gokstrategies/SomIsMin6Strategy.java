@@ -4,7 +4,8 @@ package model.gokstrategies;
  * @Author Niels Bijloos
  */
 
-public class SomIsMin6Strategy  implements GokStrategy{
+public class SomIsMin6Strategy implements GokStrategy{
+    private int winstfactor;
     private int aantal = 0;
     private int som = 0;
     private String omschrijving = GokEnum.SOMISMINSTENS6STRATEGY.getOmschrijving();
@@ -12,6 +13,16 @@ public class SomIsMin6Strategy  implements GokStrategy{
     private int gewonnen = 0;
     private int inzet = 0;
     private int bedrag = 0;
+
+    @Override
+    public int getWinstfactor() {
+        return winstfactor;
+    }
+
+    @Override
+    public void setWinstfactor(int winstfactor) {
+        this.winstfactor = winstfactor;
+    }
 
     @Override
     public boolean evalueerGok(int i) {

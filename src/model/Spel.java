@@ -21,7 +21,7 @@ public class Spel implements Observable {
     private boolean gewonnen;
     private GokStrategy gokStrategy;
     private Map<String, GokStrategy> gokStrategies;
-    private ArrayList<GokStrategy> selectedGokStrategies;
+    private Map<String, GokStrategy> selectedGokStrategies;
     private State waitState;
     private State spelerState;
     private State inzetState;
@@ -50,13 +50,11 @@ public class Spel implements Observable {
         setClosedState(new ClosedState(this));
         setState(spelerState);
         properties = new Properties();
-        selectedGokStrategies = new ArrayList<>();
+        selectedGokStrategies = new LinkedHashMap<>();
         if(getProperty("loadSave") != null) {
             setLoadSaveStrategy(createLoadSaveStrategy(getProperty("loadSave")));
         }
-        if(getProperty("gokStrategies") != null) {
-            addSelectedGokStrategies();
-        }
+        addSelectedGokStrategies();
     }
 
     @Override
@@ -98,7 +96,7 @@ public class Spel implements Observable {
 
     public void setSpeler(String spelernaam) {
         if(getSpelersList().size() == 0) {
-            throw new IllegalArgumentException("Kies formaat in de instellingen tab");
+            throw new IllegalArgumentException("Selecteer formaat in de instellingen tab");
         }
         if(getSelectedGokStrategies().size() == 0) {
             throw new IllegalArgumentException("Selecteer een of meerdere gokstrategieën in de instellingen tab");
@@ -170,7 +168,7 @@ public class Spel implements Observable {
     public void setGewonnen(boolean gewonnen) {
         this.gewonnen = gewonnen;
         if(gewonnen) {
-            addGoksaldo(getInzet()*getWinstfactor());
+            addGoksaldo(getInzet()*gokStrategy.getWinstfactor());
         } else {
             addGoksaldo(-getInzet());
         }
@@ -181,13 +179,14 @@ public class Spel implements Observable {
         }
         gokStrategies.get(gokStrategy.getOmschrijving()).addInzet(speler.getInzet());
         if(gewonnen) {
-            gokStrategies.get(gokStrategy.getOmschrijving()).addBedrag(speler.getInzet()*getWinstfactor());
+            gokStrategies.get(gokStrategy.getOmschrijving()).addBedrag(speler.getInzet()*gokStrategy.getWinstfactor());
         }
     }
 
     public void startNewGame() {
+        addSelectedGokStrategies();
         if(selectedGokStrategies.size() == 0) {
-            throw new IllegalArgumentException("Selecteer een of meerdere gokstrategieën in de instellingen tab");
+            //throw new IllegalArgumentException("Selecteer een of meerdere gokstrategieën in de instellingen tab");
         }
         nummer++;
         speler = null;
@@ -202,7 +201,7 @@ public class Spel implements Observable {
     }
 
     public void setGokStrategy(GokStrategy gokStrategy) {
-        this.gokStrategy = gokStrategy;
+        this.gokStrategy = selectedGokStrategies.get(gokStrategy.getOmschrijving());
     }
 
     public String getGokOmschrijving() {
@@ -213,16 +212,6 @@ public class Spel implements Observable {
             }
         }
         return omschrijving;
-    }
-
-    public int getWinstfactor() {
-        int winstfactor = 0;
-        for(GokEnum gok: GokEnum.values()){
-            if(gok.getKlasseNaam().equals(gokStrategy.getClass().getName())) {
-                winstfactor = gok.getWinstfactor();
-            }
-        }
-        return winstfactor;
     }
 
     public GokStrategy createGokStrategy(String omschrijving) {
@@ -304,6 +293,9 @@ public class Spel implements Observable {
     }
 
     public void setLoadSaveProperty(String value) {
+        if(value == null || value.trim().isEmpty()) {
+            throw new IllegalArgumentException("Selecteer formaat in de instellingen tab");
+        }
         try{
             OutputStream os = new FileOutputStream("src/bestanden/settings.properties");
             properties.setProperty("loadSave", value);
@@ -312,11 +304,16 @@ public class Spel implements Observable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        setLoadSaveStrategy(createLoadSaveStrategy(value));
-        notifyObservers();
+        if(nummer == 1 && getState() == getSpelerState()) {
+            setLoadSaveStrategy(createLoadSaveStrategy(value));
+            notifyObservers();
+        }
     }
 
     public void setGokStrategiesProperty(String value) {
+        if(value == null || value.trim().isEmpty()) {
+            throw new IllegalArgumentException("Selecteer een of meerdere gokstrategieën in de instellingen tab");
+        }
         try{
             OutputStream os = new FileOutputStream("src/bestanden/settings.properties");
             properties.setProperty("gokStrategies", value);
@@ -325,26 +322,26 @@ public class Spel implements Observable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(value.trim().isEmpty()) {
-            throw new IllegalArgumentException("Selecteer een of meerdere gokstrategieën in de instellingen tab");
+        if(nummer == 1 && getState() == getSpelerState()) {
+            addSelectedGokStrategies();
+            notifyObservers();
         }
-        addSelectedGokStrategies();
-        notifyObservers();
-
     }
 
     public void addSelectedGokStrategies() {
-        selectedGokStrategies = new ArrayList<>();
-        if(!getProperty("gokStrategies").trim().isEmpty()) {
-            String[] values = getProperty("gokStrategies").split(",");
-            for(String s: values) {
-                selectedGokStrategies.add(createGokStrategy(s));
+        selectedGokStrategies = new LinkedHashMap<>();
+        if(getProperty("gokStrategies") != null && !getProperty("gokStrategies").trim().isEmpty()) {
+            String[] values = getProperty("gokStrategies").split("!");
+            for(String value: values) {
+                String[] s = value.split(",");
+                selectedGokStrategies.put(s[0], createGokStrategy(s[0]));
+                selectedGokStrategies.get(s[0]).setWinstfactor(Integer.parseInt(s[1]));
             }
         }
     }
 
     public ArrayList<GokStrategy> getSelectedGokStrategies() {
-        return selectedGokStrategies;
+        return new ArrayList<>(selectedGokStrategies.values());
     }
 
     public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy) {

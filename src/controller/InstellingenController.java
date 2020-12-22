@@ -31,12 +31,5 @@ public class InstellingenController implements Observer {
 
     @Override
     public void update() {
-        if(spel.getNummer() == 1 && spel.getState() == spel.getSpelerState()) {
-            view.setDisableSaveButton(false);
-        }
-        else if(spel.getState() == spel.getWaitState()) {
-            view.setDisableSaveButton(false);
-        }
-        else view.setDisableSaveButton(true);
     }
 }

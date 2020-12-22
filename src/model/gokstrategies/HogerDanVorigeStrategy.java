@@ -6,12 +6,23 @@ package model.gokstrategies;
  */
 
 public class HogerDanVorigeStrategy implements GokStrategy {
+    private int winstfactor;
     private int vorige = 0;
     private String omschrijving = GokEnum.HOGERDANVORIGESTRATEGY.getOmschrijving();
     private int gekozen = 0;
     private int gewonnen = 0;
     private int inzet = 0;
     private int bedrag = 0;
+
+    @Override
+    public int getWinstfactor() {
+        return winstfactor;
+    }
+
+    @Override
+    public void setWinstfactor(int winstfactor) {
+        this.winstfactor = winstfactor;
+    }
 
     @Override
     public boolean evalueerGok(int i) {

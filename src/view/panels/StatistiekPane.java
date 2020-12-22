@@ -33,18 +33,23 @@ public class StatistiekPane extends GridPane {
         this.add(new Label("Statistieken:"), 0, 0, 1, 1);
 
         TableColumn<GokStrategy, String> colOmschrijving = new TableColumn<>("Omschrijving");
+        colOmschrijving.setMinWidth(340);
         colOmschrijving.setCellValueFactory(new PropertyValueFactory<>("omschrijving"));
 
         TableColumn<GokStrategy, Integer> colGekozen = new TableColumn<>("Gekozen");
+        colGekozen.setMinWidth(10);
         colGekozen.setCellValueFactory(new PropertyValueFactory<>("gekozen"));
 
         TableColumn<GokStrategy, Integer> colGewonnen = new TableColumn<>("Gewonnen");
+        colGewonnen.setMinWidth(10);
         colGewonnen.setCellValueFactory(new PropertyValueFactory<>("gewonnen"));
 
         TableColumn<GokStrategy, Double> colInzet = new TableColumn<>("Inzet");
+        colInzet.setMinWidth(10);
         colInzet.setCellValueFactory(new PropertyValueFactory<>("inzet"));
 
         TableColumn<GokStrategy, Double> colBedrag = new TableColumn<>("Bedrag");
+        colBedrag.setMinWidth(10);
         colBedrag.setCellValueFactory(new PropertyValueFactory<>("bedrag"));
 
         table.getColumns().addAll(colOmschrijving, colGekozen, colGewonnen, colInzet, colBedrag);

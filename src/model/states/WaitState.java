@@ -11,8 +11,8 @@ public class WaitState implements State {
 
     @Override
     public void startNewGame() {
-        spel.setState(spel.getSpelerState());
         spel.startNewGame();
+        spel.setState(spel.getSpelerState());
         spel.notifyObservers();
     }
 

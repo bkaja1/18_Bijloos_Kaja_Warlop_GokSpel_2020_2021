@@ -18,7 +18,6 @@ import model.gokstrategies.GokEnum;
 import model.gokstrategies.GokStrategy;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 /**
  * @Author Blenda Kaja
@@ -226,25 +225,25 @@ public class GamblerView {
 		hogerDanEenStrategyLabel.setText("");
 		somIsMin6StrategyLabel.setText("");
 		for(GokStrategy gokStrategy : spel.getSelectedGokStrategies()) {
-			if(gokStrategy.getOmschrijving().equals(GokEnum.EVENSTRATEGY.getOmschrijving())) {
+			if(gokStrategy.getOmschrijving().equals(evenStrategyRb.getText())) {
 				evenStrategyRb.setToggleGroup(gokStrategyGroup);
-				evenStrategyLabel.setText("mogelijke winst is " + GokEnum.EVENSTRATEGY.getWinstfactor() + "x je inzet");
+				evenStrategyLabel.setText("mogelijke winst is " + gokStrategy.getWinstfactor() + "x je inzet");
 			}
-			if(gokStrategy.getOmschrijving().equals(GokEnum.SOMIS21STRATEGY.getOmschrijving())) {
+			if(gokStrategy.getOmschrijving().equals(somIs21StrategyRb.getText())) {
 				somIs21StrategyRb.setToggleGroup(gokStrategyGroup);
-				somIs21StrategyLabel.setText("mogelijke winst is " + GokEnum.SOMIS21STRATEGY.getWinstfactor() + "x je inzet");
+				somIs21StrategyLabel.setText("mogelijke winst is " + gokStrategy.getWinstfactor() + "x je inzet");
 			}
-			if(gokStrategy.getOmschrijving().equals(GokEnum.HOGERDANVORIGESTRATEGY.getOmschrijving())) {
+			if(gokStrategy.getOmschrijving().equals(hogerDanVorigeStrategyRb.getText())) {
 				hogerDanVorigeStrategyRb.setToggleGroup(gokStrategyGroup);
-				hogerDanVorigeStrategyLabel.setText("mogelijke winst is " + GokEnum.HOGERDANVORIGESTRATEGY.getWinstfactor() + "x je inzet");
+				hogerDanVorigeStrategyLabel.setText("mogelijke winst is " + gokStrategy.getWinstfactor() + "x je inzet");
 			}
-			if(gokStrategy.getOmschrijving().equals(GokEnum.HOGERDANEENSTRATEGY.getOmschrijving())) {
+			if(gokStrategy.getOmschrijving().equals(hogerDanEenStrategyRb.getText())) {
 				hogerDanEenStrategyRb.setToggleGroup(gokStrategyGroup);
-				hogerDanEenStrategyLabel.setText("mogelijke winst is " + GokEnum.HOGERDANEENSTRATEGY.getWinstfactor() + "x je inzet");
+				hogerDanEenStrategyLabel.setText("mogelijke winst is " + gokStrategy.getWinstfactor() + "x je inzet");
 			}
-			if(gokStrategy.getOmschrijving().equals(GokEnum.SOMISMINSTENS6STRATEGY.getOmschrijving())) {
+			if(gokStrategy.getOmschrijving().equals(somIsMin6StrategyRb.getText())) {
 				somIsMin6StrategyRb.setToggleGroup(gokStrategyGroup);
-				somIsMin6StrategyLabel.setText("mogelijke winst is " + GokEnum.SOMISMINSTENS6STRATEGY.getWinstfactor() + "x je inzet");
+				somIsMin6StrategyLabel.setText("mogelijke winst is " + gokStrategy.getWinstfactor() + "x je inzet");
 			}
 		}
 	}
