@@ -2,6 +2,10 @@ package model.states;
 
 import model.gokstrategies.GokStrategy;
 
+/**
+ * @Author Blenda Kaja
+ */
+
 public interface State {
     default void startNewGame() {
         throw new IllegalArgumentException("Je kan geen nieuwe spel starten");

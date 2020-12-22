@@ -12,6 +12,12 @@ import model.states.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * @Author Niels Bijloos
+ * @Author Sébastien Warlop
+ * @Author Blenda Kaja
+ */
+
 public class Spel implements Observable {
     private ArrayList<Observer> observers;
     private SpelerDB spelerDB;

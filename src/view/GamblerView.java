@@ -1,8 +1,6 @@
 package view;
 
 import controller.GamblerController;
-import controller.Observable;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;

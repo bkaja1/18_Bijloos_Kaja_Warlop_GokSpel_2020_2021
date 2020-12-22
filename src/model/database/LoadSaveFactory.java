@@ -1,5 +1,11 @@
 package model.database;
 
+/**
+ * @Author Niels Bijloos
+ * @Author Sébastien Warlop
+ * @Author Blenda Kaja
+ */
+
 public class LoadSaveFactory {
     private static LoadSaveFactory uniqueInstance = null;
 

@@ -3,6 +3,10 @@ package model.states;
 import model.Spel;
 import model.gokstrategies.GokStrategy;
 
+/**
+ * @Author Blenda Kaja
+ */
+
 public class ChooseState implements State {
     private Spel spel;
 

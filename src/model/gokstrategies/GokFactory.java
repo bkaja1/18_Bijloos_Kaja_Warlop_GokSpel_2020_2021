@@ -1,5 +1,11 @@
 package model.gokstrategies;
 
+/**
+ * @Author Niels Bijloos
+ * @Author Sébastien Warlop
+ * @Author Blenda Kaja
+ */
+
 public class GokFactory {
     public static GokStrategy createGokStrategy(String omschrijving) {
         GokEnum gokEnum = null;

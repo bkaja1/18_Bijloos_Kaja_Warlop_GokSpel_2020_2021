@@ -2,6 +2,10 @@ package model.states;
 
 import model.Spel;
 
+/**
+ * @Author Blenda Kaja
+ */
+
 public class PlayState implements State {
     private Spel spel;
 

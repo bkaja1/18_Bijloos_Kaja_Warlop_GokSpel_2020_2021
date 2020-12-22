@@ -12,11 +12,9 @@ import model.gokstrategies.GokStrategy;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-
 /**
  * @Author Sébastien Warlop
  */
-
 
 public class StatistiekPane extends GridPane {
     private TableView<GokStrategy> table;

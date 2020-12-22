@@ -3,8 +3,9 @@ package controller;
 import model.Spel;
 import view.panels.InstellingenPane;
 
-import java.io.FileNotFoundException;
-import java.util.List;
+/**
+ * @Author Blenda Kaja
+ */
 
 public class InstellingenController implements Observer {
     private InstellingenPane view;

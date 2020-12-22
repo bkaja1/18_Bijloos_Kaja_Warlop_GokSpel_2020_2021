@@ -2,6 +2,10 @@ package model.states;
 
 import model.Spel;
 
+/**
+ * @Author Blenda Kaja
+ */
+
 public class WaitState implements State {
     private Spel spel;
 

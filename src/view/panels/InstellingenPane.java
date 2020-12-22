@@ -1,8 +1,6 @@
 package view.panels;
 
 import controller.InstellingenController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -12,6 +10,10 @@ import model.gokstrategies.GokStrategy;
 
 import javax.swing.*;
 import java.util.ArrayList;
+
+/**
+ * @Author Blenda Kaja
+ */
 
 public class InstellingenPane extends GridPane {
     private ToggleGroup loadSaveGroup = new ToggleGroup();
