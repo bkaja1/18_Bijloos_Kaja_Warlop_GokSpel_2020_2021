@@ -1,4 +1,6 @@
-package controller;
+package model;
+
+import controller.Observer;
 
 /**
  * @Author Niels Bijloos
