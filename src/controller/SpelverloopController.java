@@ -1,6 +1,5 @@
 package controller;
 
-import model.Observer;
 import model.Spel;
 import view.panels.SpelverloopPane;
 

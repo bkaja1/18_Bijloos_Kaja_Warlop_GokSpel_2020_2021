@@ -1,5 +1,6 @@
 package model;
 
+import controller.Observer;
 import model.database.LoadSaveEnum;
 import model.database.LoadSaveFactory;
 import model.database.LoadSaveStrategy;
@@ -17,7 +18,7 @@ import java.util.*;
  */
 
 public class Spel implements Observable {
-    private ArrayList<Observer> observers;
+    private ArrayList<controller.Observer> observers;
     private SpelerDB spelerDB;
     private Speler speler;
     private int nummer;
@@ -62,12 +63,12 @@ public class Spel implements Observable {
     }
 
     @Override
-    public void addObserver(Observer o) {
+    public void addObserver(controller.Observer o) {
         observers.add(o);
     }
 
     @Override
-    public void deleteObserver(Observer o) {
+    public void deleteObserver(controller.Observer o) {
         observers.remove(o);
     }
 
