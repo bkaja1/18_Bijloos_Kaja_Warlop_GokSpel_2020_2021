@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 /**
  * @Author Niels Bijloos

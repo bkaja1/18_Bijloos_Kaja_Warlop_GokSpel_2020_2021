@@ -1,6 +1,5 @@
 package model;
 
-import controller.Observer;
 import model.database.LoadSaveEnum;
 import model.database.LoadSaveFactory;
 import model.database.LoadSaveStrategy;

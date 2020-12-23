@@ -1,5 +1,6 @@
 package controller;
 
+import model.Observer;
 import model.Spel;
 
 import view.panels.StatistiekPane;
@@ -10,7 +11,7 @@ import view.panels.StatistiekPane;
  */
 
 
-public class StatistiekController implements Observer{
+public class StatistiekController implements Observer {
     private StatistiekPane view;
     private Spel spel;
 
